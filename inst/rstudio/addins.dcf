@@ -1,0 +1,9 @@
+Name: Extract and run tests
+Description: Run `extract_tests()` and `test()`
+Binding: addin_test
+Interactive: false
+
+Name: Extract and run tests from active file
+Description: Extract and run tests from active file.
+Binding: addin_test_file
+Interactive: false

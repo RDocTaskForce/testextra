@@ -1,0 +1,8 @@
+exportPattern("^[[:alpha:]]+")
+import(methods)
+import(parsetools)
+import(pkgcond)
+import(testthat)
+import(postlogic)
+importFrom(assertthat,is.string)
+importFrom(assertthat,validate_that)

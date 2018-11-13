@@ -1,0 +1,38 @@
+Package: testextra
+Type: Package
+Title: Extract Test Blocks
+Version: 0.1.0
+Authors@R: person("Andrew", "Redd", role = c("aut", "cre")
+                 , email = "Andrew.Redd@hsc.utah.edu"
+                 , comment = c(ORCID = "https://orcid.org/000-0002-6149-2438")
+                 )
+Maintainer: Andrew Redd <amredd@gmail.com>
+Description: Extract inline test blocks from package source files.
+    Also includes a collection of testing enhancements and utilities.
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+Imports: assertthat,
+    methods,
+    parsetools,
+    pkgcond,
+    postlogic,
+    purrr,
+    rlang,
+    stringi,
+    testthat,
+    utils
+Suggests: devtools,
+    withr,
+    rstudioapi
+Roxygen: list(markdown = TRUE, roclets = c('rd'))
+RoxygenNote: 6.1.0.9000
+Collate: 
+    'extract_tests.R'
+    'catch_condition.R'
+    'expectations.R'
+    'inheritance.R'
+    'new_namespace.R'
+    'strings.R'
+    'util-testing.R'
+    'validity.R'
