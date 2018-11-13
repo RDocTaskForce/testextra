@@ -36,3 +36,5 @@ Collate:
     'strings.R'
     'util-testing.R'
     'validity.R'
+URL: https://github.com/RDocTaskForce/testextra
+BugReports: https://github.com/RDocTaskForce/testextra/issues
