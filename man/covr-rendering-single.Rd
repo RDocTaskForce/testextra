@@ -2,16 +2,20 @@
 % Please edit documentation in R/coverage.R
 \name{covr-rendering-single}
 \alias{covr-rendering-single}
-\alias{renderSourceRow}
-\alias{renderSourceFile}
-\alias{single_file_summary}
+\alias{.renderSourceRow}
+\alias{.renderSourceFile}
+\alias{.single_file_summary}
+\alias{.renderReport}
 \title{Rendering for single file report}
 \usage{
-renderSourceRow(line, source, coverage)
+.renderSourceRow(line, source, coverage)
 
-renderSourceFile(lines, file = "source", highlight = TRUE)
+.renderSourceFile(lines, file = "source", highlight = TRUE)
 
-single_file_summary(file_stats)
+.single_file_summary(file_stats)
+
+.renderReport(coverage, report.file, dir = dirname(report.file),
+  libdir = file.path(dir, "lib"))
 }
 \arguments{
 \item{line, lines}{Line(s) number}
@@ -25,12 +29,15 @@ single_file_summary(file_stats)
 \item{highlight}{Highlight the row.}
 
 \item{file_stats}{The coverage object for the file.}
+
+\item{report.file}{Where to output the HTML report.}
+
+\item{dir}{the base directory for the HTML output}
+
+\item{libdir}{Where to put html dependencies?}
 }
 \description{
 These functions facilitate the creation of reports for coverage of a
 single file.
-}
-\details{
-Coverage with test extraction
 }
 \concept{coverage}

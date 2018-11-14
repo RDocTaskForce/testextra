@@ -27,6 +27,9 @@ Suggests:
     devtools,
     withr,
     rstudioapi,
+    htmltools, 
+    shiny,
+    yaml,
     DT
 Roxygen: list(markdown = TRUE, roclets = c('rd'))
 RoxygenNote: 6.1.0.9000

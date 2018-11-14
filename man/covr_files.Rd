@@ -7,11 +7,11 @@
 covr_files(filter, pkg = ".", report = TRUE)
 }
 \arguments{
-\item{filter}{An optional filter to restrict the files to extract from and run tests for.}
+\item{filter}{A regular expression filter to apply to the files from \code{pkg}.}
 
-\item{pkg}{The package to test.}
+\item{pkg}{The package to compute coverage for.}
 
-\item{create}{Display a report of the coverage?}
+\item{report}{If a report should be constructed and shown.}
 }
 \description{
 Compute coverage for a group of files.

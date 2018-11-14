@@ -1,7 +1,8 @@
 
 # nocov start
 
-### Single File Coverage #####
+# Single File Coverage -----
+# Rendering =====
 #' @name covr-rendering-single
 #' @title Rendering for single file report
 #' @description
@@ -12,8 +13,11 @@
 #' @param source source file
 #' @param coverage The number of times covered
 #' @param file the file in question
+#' @param report.file Where to output the HTML report.
 #' @param highlight Highlight the row.
 #' @param file_stats The coverage object for the file.
+#' @param dir the base directory for the HTML output
+#' @param libdir Where to put html dependencies?
 #'
 #' @family coverage
 NULL
@@ -21,7 +25,8 @@ NULL
 
 
 #' @rdname covr-rendering-single
-renderSourceRow <- function(line, source, coverage) {
+.renderSourceRow <- function(line, source, coverage) {
+    requireNamespace('htmltools')
     cov_type <- NULL
     if (coverage == 0) {
       cov_value <- shiny::tags$td("!")
@@ -41,8 +46,11 @@ renderSourceRow <- function(line, source, coverage) {
     htmltools::renderTags(htmltools::tags$tr( class = cov_type, line, src, cov_value))
 }
 #' @rdname covr-rendering-single
-renderSourceFile <- function(lines, file="source", highlight=TRUE) {
-    rows <- Map(renderSourceRow, lines$line, lines$source, lines$coverage)
+.renderSourceFile <- function(lines, file="source", highlight=TRUE) {
+    assert_that( requireNamespace('htmltools')
+               , requireNamespace('shiny')
+               )
+    rows <- Map(.renderSourceRow, lines$line, lines$source, lines$coverage)
     html <- shiny::tags$div( id = file
                            , class = "source-listing"
                            , shiny::tags$table( class = "table-condensed"
@@ -61,8 +69,9 @@ renderSourceFile <- function(lines, file="source", highlight=TRUE) {
     return(htmltools::renderTags(html))
 }
 #' @rdname covr-rendering-single
-single_file_summary <-
+.single_file_summary <-
 function(file_stats){
+    assert_that(requireNamespace('htmltools'))
     htmltools::renderTags(
         with(htmltools::tags,
              table(tbody( tr(th("Coverage:"   ), td(shiny::HTML(file_stats$Coverage)))
@@ -75,12 +84,81 @@ function(file_stats){
              )
     )
 }
+#' @rdname covr-rendering-single
+.renderReport <-
+function( coverage
+        , report.file
+        , dir = dirname(report.file)
+        , libdir = file.path(dir, "lib")
+        )
+{
+    assert_that( requireNamespace("shiny")
+               , requireNamespace('covr')
+               , requireNamespace('DT')
+               , isNamespace(covr <- asNamespace('covr'))
+               )
 
+    shiny.data <- covr$to_report_data(coverage)
+
+    file <- attr(coverage, 'file')
+    pkg  <- attr(coverage, 'package')
+    fname <- gsub(normalizePath(pkg$path, '/'), '', file, fixed = TRUE)
+
+    shiny.summary <- DT::datatable( shiny.data$file_stats
+                                  , escape = FALSE
+                                  , options = list(searching = FALSE, dom = "t", paging = FALSE)
+                                  , rownames = FALSE
+                                  )
+    shiny.source <- .renderSourceFile(shiny.data$full[[1]])
+    ui <- shiny::fluidPage( shiny::includeCSS(system.file("www/report.css",package = "covr"))
+                          , title = paste0("{", pkg$package, "}", fname , " Coverage")
+                          , shiny::column( 8, offset=2
+                                         , htmltools::tags$h1( "Coverage for file"
+                                                             ,  htmltools::tags$pre(fname))
+                                         , shiny::tabsetPanel( shiny::tabPanel( htmltools::tags$h2("Summary")
+                                                                              , .single_file_summary(shiny.data$file_stats)
+                                                                              ))
+                                         , shiny::tabsetPanel( shiny::tabPanel( htmltools::tags$h2("Source")
+                                                                              , shiny.source
+                                                                              ))
+                                         )
+                          )
+
+    ui <- htmltools::tags$body(ui, style = "background-color:white")
+
+    ui <- htmltools::renderTags(ui)
+    if (!dir.exists(libdir)) dir.create(libdir, recursive = TRUE)
+    ui$dependencies <- lapply(ui$dependencies, function(dep) {
+        dep <- htmltools::copyDependencyToDir(dep, libdir, FALSE)
+        dep <- htmltools::makeDependencyRelative(dep, dir, FALSE)
+        dep
+    })
+
+    html <- c( "<!DOCTYPE html>"
+             , "<html>"
+                 , "<head>"
+                      , "<meta charset=\"utf-8\"/>"
+                      , htmltools::renderDependencies(ui$dependencies)
+                      , ui$head
+                  , "</head>"
+                  , ui$html
+              , "</html>")
+    writeLines(html, report.file, useBytes = TRUE)
+}
+
+# Computing =====
 #' @name covr-single
 #' @title Single File Coverage
 #' @description
 #' These functions extract tests, run tests and create a report of the coverage for
 #' a single file.
+#'
+#' @param file The file to extract test from and compute coverage.
+#' @param pkg The package `file` is associated with.
+#' @inheritDotParams covr::file_coverage
+#' @param coverage Coverage returned from `file_coverage()`.
+#' @param report.file Where to save the HTMLreport.
+#' @param show.report if the HTMLreport should be displayed.
 NULL
 
 #' @describeIn covr-single Extract tests and compute the coverage for the given file.
@@ -118,66 +196,6 @@ function( file = rstudioapi::getSourceEditorContext()$path
                          , file=file
                          )
 }
-renderReport <-
-function( coverage
-        , report.file
-        , dir = dirname(report.file)
-        , libdir = file.path(dir, "lib")
-        )
-{
-    assert_that( requireNamespace("shiny")
-               , requireNamespace('covr')
-               , requireNamespace('DT')
-               , isNamespace(covr <- asNamespace('covr'))
-               )
-
-    shiny.data <- covr$to_report_data(coverage)
-
-    file <- attr(coverage, 'file')
-    pkg  <- attr(coverage, 'package')
-    fname <- gsub(normalizePath(pkg$path, '/'), '', file, fixed = TRUE)
-
-    shiny.summary <- DT::datatable( shiny.data$file_stats
-                                  , escape = FALSE
-                                  , options = list(searching = FALSE, dom = "t", paging = FALSE)
-                                  , rownames = FALSE
-                                  )
-    shiny.source <- renderSourceFile(shiny.data$full[[1]])
-    ui <- shiny::fluidPage( shiny::includeCSS(system.file("www/report.css",package = "covr"))
-                          , title = paste0("{", pkg$package, "}", fname , " Coverage")
-                          , shiny::column( 8, offset=2
-                                         , htmltools::tags$h1( "Coverage for file"
-                                                             ,  htmltools::tags$pre(fname))
-                                         , shiny::tabsetPanel( shiny::tabPanel( htmltools::tags$h2("Summary")
-                                                                              , single_file_summary(shiny.data$file_stats)
-                                                                              ))
-                                         , shiny::tabsetPanel( shiny::tabPanel( htmltools::tags$h2("Source")
-                                                                              , shiny.source
-                                                                              ))
-                                         )
-                          )
-
-    ui <- htmltools::tags$body(ui, style = "background-color:white")
-
-    ui <- htmltools::renderTags(ui)
-    if (!dir.exists(libdir)) dir.create(libdir, recursive = TRUE)
-    ui$dependencies <- lapply(ui$dependencies, function(dep) {
-        dep <- htmltools::copyDependencyToDir(dep, libdir, FALSE)
-        dep <- htmltools::makeDependencyRelative(dep, dir, FALSE)
-        dep
-    })
-
-    html <- c( "<!DOCTYPE html>"
-             , "<html>"
-                 , "<head>"
-                      , "<meta charset=\"utf-8\"/>"
-                      , htmltools::renderDependencies(ui$dependencies)
-                      , ui$head
-                  , "</head>"
-                  , ui$html
-              , "</html>")
-    writeLines(html, report.file, useBytes = TRUE)
-}
 
 #' @describeIn covr-single Create a report for a single
 covr_file <-
@@ -194,7 +212,7 @@ function( coverage = file_coverage()
     if (is.null(report.file))
         report.file <- file.path(tempdir(), paste0("coverage-report-", basename(attr(coverage, 'file')), ".html"))
     report.file <- normalizePath(report.file, '/', FALSE)
-    renderReport(coverage, report.file)
+    .renderReport(coverage, report.file)
     if (show.report)
         rstudioapi::viewer(report.file) # nocov
     invisible(report.file)
@@ -220,7 +238,7 @@ if(FALSE){# Interactive testing, do not extract.
 
     report.file <- file.path(pkg, 'covr', 'covr-function.html')
 
-    expect_null(renderReport(coverage, report.file))
+    expect_null(.renderReport(coverage, report.file))
     expect_true(file.exists(report.file))
 
     output <- covr_file(coverage, report.file, FALSE)
@@ -250,14 +268,15 @@ if(FALSE){# Interactive testing, do not extract.
 ### Coverage for File Groups #####
 #' Compute coverage for a group of files.
 #'
-#' @inheritParams test
-#' @param create Display a report of the coverage?
+#' @param filter A regular expression filter to apply to the files from `pkg`.
+#' @param pkg The package to compute coverage for.
+#' @param report If a report should be constructed and shown.
 covr_files <-
 function( filter
         , pkg = '.'
         , report = TRUE
         ){
-    pkg <- as.package(pkg)
+    pkg <- devtools::as.package(pkg)
     assert_that( requireNamespace("shiny")
                , requireNamespace('covr')
                , isNamespace(covr <- asNamespace('covr'))
@@ -297,12 +316,16 @@ function( filter
                          , file=file
                          )
     if (report) covr::report(coverage, browse = TRUE)
+    invisible(coverage)
 }
 # nocov end
 
 
 # Rstudio Addins ----------------------------------------------------------
 # nocov start
+#' Addin for `covr_file`
+#'
+#' This allows for [covr_file] to be run from a menu in Rstudio.
 addin_covr_file <- function(){
     stopifnot(requireNamespace("rstudioapi"))
     pkg <- rstudioapi::getActiveProject()
