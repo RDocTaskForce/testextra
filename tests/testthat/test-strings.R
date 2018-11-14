@@ -1,4 +1,4 @@
-#! This file was automatically produced by the documentation package.
+#! This file was automatically produced by the testextra package.
 #! Changes will be overwritten.
 
 context('tests extracted from file `strings.R`')

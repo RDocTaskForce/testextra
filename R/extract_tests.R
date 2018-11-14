@@ -34,6 +34,16 @@ makeActiveBinding( '.tests.head.lines', function(){
      )
 }, environment())
 
+.pkg_base <- function(path){
+    if (grepl("\\.(R|r)$", path))
+        path <- dirname(path)
+    while ( nchar(path) > 0
+         && basename(path) %in% c('R', 'man', 'tests', 'testthat')
+         && !file.exists(file.path(path, 'DESCRIPTION'))
+          ) path <- dirname(path)
+    if (file.exists(file.path(path, 'DESCRIPTION'))) return(path)
+}
+
 #@internal
 .extract_tests_to_file <-
 function( file              #< file to extract tests from
@@ -46,7 +56,8 @@ function( file              #< file to extract tests from
     pkg_message(._("* Extracting tests from file `%s`.\n", file)) %if% verbose
     if (is.null(file.out)){
         if (is.null(test.dir)){
-            test.dir <- '.'
+            test.dir <- .pkg_base(file)
+            if (is.null(test.dir)) test.dir <- '.'
             if (file.exists(. <- file.path(test.dir, "tests"   ))) test.dir <- .
             if (file.exists(. <- file.path(test.dir, "testthat"))) test.dir <- .
             if (verbose) message("  + `test.dir` not provided. Setting to `", test.dir, "`")
@@ -629,7 +640,5 @@ addin_test_file <- function(){
     rstudioapi::documentSave(doc$id)
     test_file(doc$path, basename(pkg))
 }
-
-
 # nocov end
 

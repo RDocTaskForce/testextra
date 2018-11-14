@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<link href="lib/highlight.js-6.2/rstudio.css" rel="stylesheet" />
+<script src="lib/highlight.js-6.2/highlight.pack.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="lib/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<script src="lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script src="lib/bootstrap-3.3.7/shim/html5shiv.min.js"></script>
+<script src="lib/bootstrap-3.3.7/shim/respond.min.js"></script>
+  <title>{testExtractionTest}/R/function.R Coverage</title>
+</head>
+<body style="background-color:white">
+  <div class="container-fluid">
+    <style type="text/css">table tr:hover td {
+  font-weight:bold;text-decoration:none
+}
+table tr.covered td{
+  background-color:rgba(95,151,68,0.3)
+}
+
+table tr:hover.covered .num{
+  background-color:rgba(95,151,68,0.7)
+}
+table tr.missed td{
+  background-color:rgba(185,73,71,0.3)
+}
+table tr:hover.missed .num{
+  background-color:rgba(185,73,71,0.7)
+}
+
+table tr.missed:hover td{
+  -webkit-box-shadow:0 -2px 0 0 #b94947 inset;
+  -moz-box-shadow:0 -2px 0 0 #b94947 inset;
+  box-shadow:0 -2px 0 0 #b94947 inset
+}
+table tr.covered:hover td{
+  -webkit-box-shadow:0 -2px 0 0 #5f9744 inset;
+  -moz-box-shadow:0 -2px 0 0 #5f9744 inset;
+  box-shadow:0 -2px 0 0 #5f9744 inset
+}
+
+table tr.never td{
+  background-color:transparent
+}
+
+table tbody {
+  border-style: solid;
+  border: 1px solid rgba(0,0,0,0.1)
+}
+
+table .num {
+  border-right: 1px solid rgba(0,0,0,0.1)
+}
+
+td.coverage em {
+  opacity: 0.5;
+}
+
+table td.coverage {
+  border-right: 1px solid rgba(0,0,0,0.1);
+  font-weight: bold;
+  text-align: center;
+}
+table.table-condensed pre {
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 11px;
+}
+div#files td {
+  padding: 0;
+  padding-left: 5px;
+}
+
+div#files td.num {
+  padding-right: 5px;
+}
+
+table.table-condensed {
+  font-size: 11px;
+}</style>
+    <div class="col-sm-8 col-sm-offset-2">
+      <h1>
+        Coverage for file
+        <pre>/R/function.R</pre>
+      </h1>
+      <div class="tabbable">
+        <ul class="nav nav-tabs" data-tabsetid="4606">
+          <li class="active">
+            <a href="#tab-4606-1" data-toggle="tab" data-value="&lt;h2&gt;Summary&lt;/h2&gt;">
+              <h2>Summary</h2>
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content" data-tabsetid="4606">
+          <div class="tab-pane active" data-value="&lt;h2&gt;Summary&lt;/h2&gt;" id="tab-4606-1">
+            
+            <table>
+  <tbody>
+    <tr>
+      <th>Coverage:</th>
+      <td>100.00%</td>
+    </tr>
+    <tr>
+      <th>Total Lines:</th>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>Relevant:</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Covered:</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>Missed:</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>Hits / Line:</th>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+          </div>
+        </div>
+      </div>
+      <div class="tabbable">
+        <ul class="nav nav-tabs" data-tabsetid="8487">
+          <li class="active">
+            <a href="#tab-8487-1" data-toggle="tab" data-value="&lt;h2&gt;Source&lt;/h2&gt;">
+              <h2>Source</h2>
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content" data-tabsetid="8487">
+          <div class="tab-pane active" data-value="&lt;h2&gt;Source&lt;/h2&gt;" id="tab-8487-1">
+            
+            <div id="source" class="source-listing">
+  <table class="table-condensed">
+    <tbody>
+      
+      <tr class="never">
+  <td class="num">1</td>
+  <td class="col-sm-12">
+    <pre class="language-r"># A test cases for extracting tests from a package structure.</pre>
+  </td>
+  <td></td>
+</tr>
+      
+      <tr class="never">
+  <td class="num">2</td>
+  <td class="col-sm-12">
+    <pre class="language-r"></pre>
+  </td>
+  <td></td>
+</tr>
+      
+      <tr class="never">
+  <td class="num">3</td>
+  <td class="col-sm-12">
+    <pre class="language-r">hello_world &lt;- function(){</pre>
+  </td>
+  <td></td>
+</tr>
+      
+      <tr class="covered">
+  <td class="num">4</td>
+  <td class="col-sm-12">
+    <pre class="language-r">    print("hello world")</pre>
+  </td>
+  <td class="coverage">
+    <span class="coverage-count">1</span>
+    <em>x</em>
+  </td>
+</tr>
+      
+      <tr class="never">
+  <td class="num">5</td>
+  <td class="col-sm-12">
+    <pre class="language-r">}</pre>
+  </td>
+  <td></td>
+</tr>
+      
+      <tr class="never">
+  <td class="num">6</td>
+  <td class="col-sm-12">
+    <pre class="language-r">if(FALSE){#!@testthat</pre>
+  </td>
+  <td></td>
+</tr>
+      
+      <tr class="never">
+  <td class="num">7</td>
+  <td class="col-sm-12">
+    <pre class="language-r">    expect_output(hello_world(), "hello world")</pre>
+  </td>
+  <td></td>
+</tr>
+      
+      <tr class="never">
+  <td class="num">8</td>
+  <td class="col-sm-12">
+    <pre class="language-r">}</pre>
+  </td>
+  <td></td>
+</tr>
+    </tbody>
+  </table>
+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -17,7 +17,7 @@ function( name
          , name = part %<<<% ':' %<<<% name )
     }
 
-    if (!dir.exists(path)) dir.create(path)
+    if (!dir.exists(path)) dir.create(path) # nocov
     path <- normalizePath(path, "/", TRUE)
 
     imports <- new_sub_env('imports')
@@ -58,6 +58,13 @@ if(FALSE){#@testing
     expect_true(isNamespace(ns))
     expect_equal(getPackageName(ns), "test package environment")
     expect_equal(environmentName(ns), "test package environment")
+    expect_false(is_namespace_registered(ns))
+
+    ns2 <- new_pkg_environment("pkg2", register=TRUE)
+    expect_true(isNamespace(ns2))
+    expect_equal(getPackageName(ns2), "pkg2")
+    expect_equal(environmentName(ns2), "pkg2")
+    expect_true(is_namespace_registered('pkg2'))
 }
 
 makeActiveBinding('.ns.registry', function(){
@@ -88,5 +95,5 @@ function(ns){
         ns <- environmentName(ns)
     else assert_that(is.character(ns)
                     , msg = "ns must be a name string or a namespace environment" )
-    ns %in% loadedNamespaces()
+    ns %in% names(.ns.registry)
 }

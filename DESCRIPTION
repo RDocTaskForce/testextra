@@ -22,9 +22,12 @@ Imports: assertthat,
     stringi,
     testthat,
     utils
-Suggests: devtools,
+Suggests: 
+    covr,
+    devtools,
     withr,
-    rstudioapi
+    rstudioapi,
+    DT
 Roxygen: list(markdown = TRUE, roclets = c('rd'))
 RoxygenNote: 6.1.0.9000
 Collate: 
@@ -36,5 +39,6 @@ Collate:
     'strings.R'
     'util-testing.R'
     'validity.R'
+    'coverage.R'
 URL: https://github.com/RDocTaskForce/testextra
 BugReports: https://github.com/RDocTaskForce/testextra/issues

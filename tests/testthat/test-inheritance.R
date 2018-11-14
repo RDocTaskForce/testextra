@@ -2,6 +2,30 @@
 #! Changes will be overwritten.
 
 context('tests extracted from file `inheritance.R`')
+#line 40 "C:/Users/u0092104/Dropbox/rdtf/testextra/R/inheritance.R"
+test_that('all_inherit', {#@testing
+    l <- list( 'a', 'b', 'c'
+             , 1, 2
+             , function()"hello world"
+             )
+    expect_identical( validate_that(all_inherit(l, 'character'))
+                    , "`l` has bad elements at 4, 5, and 6" %<<%
+                      "which do not inherit from" %<<%
+                      dQuote("character") %<<<% '.')
+    expect_identical( validate_that(all_inherit(l, c('character', 'function')))
+                    , "`l` has bad elements at 4 and 5" %<<%
+                      "which do not inherit from" %<<%
+                      dQuote("character") %<<% 'or' %<<%
+                      dQuote("function") %<<<% '.')
+    expect_identical( validate_that(all_inherit(l, c('character', 'numeric')))
+                    , "`l` has bad element at 6" %<<%
+                      "which does not inherit from" %<<%
+                      dQuote("character") %<<% 'or' %<<%
+                      dQuote("numeric") %<<<% '.' %<<%
+                      "It is a" %<<% dQuote("function"))
+
+    expect_true( all_inherit(list(1L, 2L, 3L), 'integer'))
+})
 #line 70 "C:/Users/u0092104/Dropbox/rdtf/testextra/R/inheritance.R"
 test_that('are', {#@testing
     lst <- list('a', 1L, TRUE)
@@ -33,7 +57,11 @@ test_that('all_are_exactly', {#@testing
                       dQuote("numeric") %<<<% '.')
     expect_true(all_are_exactly(list(1L, 2L), 'integer'))
 })
-#line 178 "C:/Users/u0092104/Dropbox/rdtf/testextra/R/inheritance.R"
+#line 163 "C:/Users/u0092104/Dropbox/rdtf/testextra/R/inheritance.R"
+test_that('expect_is_not', {#@testing
+    expect_is_not('a', 'numeric')
+})
+#line 181 "C:/Users/u0092104/Dropbox/rdtf/testextra/R/inheritance.R"
 test_that('expect_is_exactly', {#@testing
     x <- list(1:3)
 
@@ -47,4 +75,29 @@ test_that('expect_is_exactly', {#@testing
     expect_error( expect_is_exactly(x, 'super1')
                 , "`x` is a class/super1/super2; should be exactly a `super1`."
                 )
+})
+#line 205 "C:/Users/u0092104/Dropbox/rdtf/testextra/R/inheritance.R"
+test_that('expect_all_inherit', {#@testing
+    expect_true( expect_all_inherit(1:3, 'integer'))
+    l <- list( 'a', 'b', 'c'
+             , 1, 2
+             , function()"hello world"
+             )
+    expect_error( expect_all_inherit(l, 'character')
+                , "`l` has bad elements at 4, 5, and 6" %<<%
+                  "which do not inherit from" %<<%
+                  dQuote("character") %<<<% '.')
+    expect_error( expect_all_inherit(l, c('character', 'function'))
+                , "`l` has bad elements at 4 and 5" %<<%
+                  "which do not inherit from" %<<%
+                  dQuote("character") %<<% 'or' %<<%
+                  dQuote("function") %<<<% '.')
+    expect_error( expect_all_inherit(l, c('character', 'numeric'))
+                , "`l` has bad element at 6" %<<%
+                  "which does not inherit from" %<<%
+                  dQuote("character") %<<% 'or' %<<%
+                  dQuote("numeric") %<<<% '.' %<<%
+                  "It is a" %<<% dQuote("function"))
+
+
 })

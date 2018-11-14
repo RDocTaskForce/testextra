@@ -2,7 +2,7 @@
 #! Changes will be overwritten.
 
 context('tests extracted from file `validity.R`')
-#line 55 "C:/Users/u0092104/Dropbox/rdtf/testextra/R/validity.R"
+#line 55 "R/validity.R"
 test_that('expect_valid', {#@testing
     gen <- setClass('invalid', list(valid='logical'))
     setValidity('invalid', function(object) 'This class is always invalid')

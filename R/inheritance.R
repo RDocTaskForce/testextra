@@ -35,9 +35,9 @@ all_inherit <- function(lst, class, label=NULL){
           , dQuote(bad.class)
           )
           }
-    return(structure(FALSE, msg, bad.elements = which(!.)))
+    return(structure(FALSE, msg=msg, bad.elements = which(!.)))
 }
-if(FALSE){#@ testing
+if(FALSE){#@testing
     l <- list( 'a', 'b', 'c'
              , 1, 2
              , function()"hello world"
@@ -160,6 +160,9 @@ function (object, class, info = NULL, label = NULL){
                     , info = info)
     invisible(act$val)
 }
+if(FALSE){#@testing
+    expect_is_not('a', 'numeric')
+}
 
 #' @describeIn class-expectations test that an object is exactly a specific class
 #'  and not a child class.
@@ -199,7 +202,7 @@ expect_all_inherit <- function (object, class, info = NULL, label = NULL) {
                     , info = info)
     invisible(test)
 }
-if(FALSE){
+if(FALSE){#@testing
     expect_true( expect_all_inherit(1:3, 'integer'))
     l <- list( 'a', 'b', 'c'
              , 1, 2
