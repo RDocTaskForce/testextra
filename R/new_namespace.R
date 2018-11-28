@@ -20,7 +20,7 @@ function( name
     if (!dir.exists(path)) dir.create(path) # nocov
     path <- normalizePath(path, "/", TRUE)
 
-    imports <- new_sub_env('imports')
+    imports <- new_sub_env('imports', .BaseNamespaceEnv)
     ns      <- new.env(TRUE, imports)
     ns$.__NAMESPACE__. <- new.env(parent = baseenv())
     ns$.__NAMESPACE__.$spec <- c(name = name, version = "0.0.0")
@@ -32,7 +32,7 @@ function( name
     setNamespaceInfo(ns, "S3methods", matrix(NA_character_, 0L, 3L))
     ns$.__S3MethodsTable__. <- new.env(hash = TRUE, parent = baseenv())
 
-    for (i in import) namespaceImport(ns, i)
+    for (i in import) namespaceImport(self=ns, i, from=i)
     ns
 }
 if(FALSE){#@testing
@@ -66,10 +66,46 @@ if(FALSE){#@testing
     expect_equal(environmentName(ns2), "pkg2")
     expect_true(is_namespace_registered('pkg2'))
 }
+if(FALSE){#@testing Can define classes, generics and methods.
+    ns <- new_pkg_environment("class-test", register=TRUE)
+    expect_true(isNamespace(ns))
+    expect_equal(getPackageName(ns), "class-test")
+    expect_equal(environmentName(ns), "class-test")
+    expect_true(is_namespace_registered(ns))
 
-makeActiveBinding('.ns.registry', function(){
+    cls <- setClass("my-test-class", contains='list', where=ns)
+    expect_is(cls, 'classGeneratorFunction')
+    expect_true(exists(classMetaName(cls@className), ns))
+
+    val <- setGeneric( "my_generic", function(object)stop('not implimented')
+                     , where = ns )
+    expect_identical(val, "my_generic")
+    expect_true(exists('my_generic', ns))
+
+    val <- setMethod('my_generic', 'my-test-class', function(object){
+        "horray it works"
+    }, where=ns)
+    expect_identical(val, "my_generic")
+    expect_true(exists(methodsPackageMetaName('T', "my_generic", getPackageName(ns)), ns))
+    expect_true(exists('my-test-class'
+                      , get( methodsPackageMetaName('T', "my_generic", getPackageName(ns))
+                           , ns)))
+
+    unregister_namespace(ns)
+    expect_false(is_namespace_registered(ns))
+    expect_false(unregister_namespace(ns))
+}
+if(FALSE){#@testing can specify imports
+    pkg <- new_pkg_environment('test-import', import=c('methods', 'testextra'))
+    expect_true(isNamespace(pkg))
+    expect_true("testextra" %in% names(pkg$.__NAMESPACE__.$imports))
+    expect_true(exists("new_pkg_environment", parent.env(pkg), inherits = TRUE))
+}
+
+
+.ns.registry <- function(){
     (get(".Internal", envir = baseenv(), mode = "function"))(getNamespaceRegistry())
-}, environment())
+}
 
 #' Register a namespace
 #'
@@ -82,8 +118,23 @@ register_namespace <- function(ns){
                , is_nonempty_string(name <- environmentName(ns))
                , !is_namespace_registered(name)
                )
-    assign(name, ns, .ns.registry)
+    assign(name, ns, .ns.registry())
     invisible(ns)
+}
+
+#' Register a namespace
+#'
+#' Only full packages should ever be registered.
+#'
+#' @param ns A namespace environment.
+#'
+unregister_namespace <- function(ns){
+    assert_that( isNamespace(ns)
+               , is_nonempty_string(name <- environmentName(ns))
+               )
+    if (is_namespace_registered(name))
+        (get(".Internal", envir = baseenv(), mode = "function"))(unregisterNamespace(name))
+    else FALSE
 }
 
 #' Check if a namespace is registered
@@ -95,5 +146,5 @@ function(ns){
         ns <- environmentName(ns)
     else assert_that(is.character(ns)
                     , msg = "ns must be a name string or a namespace environment" )
-    ns %in% names(.ns.registry)
+    ns %in% names(.ns.registry())
 }

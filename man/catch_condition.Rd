@@ -2,9 +2,12 @@
 % Please edit documentation in R/catch_condition.R
 \name{catch_condition}
 \alias{catch_condition}
+\alias{catch_all_conditions}
 \title{Catch a condition for testing.}
 \usage{
 catch_condition(code)
+
+catch_all_conditions(code)
 }
 \arguments{
 \item{code}{code to run that should assert a condition.}

@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-testextra
-=========
+testextra <img src="man/figures/logo.png" align="right" height=140/>
+====================================================================
 
 [![Travis build status](https://travis-ci.org/RDocTaskForce/testextra.svg?branch=master)](https://travis-ci.org/RDocTaskForce/testextra) [![codecov.io](https://codecov.io/github/RDocTaskForce/testextra/coverage.svg?branch=master)](https://codecov.io/github/RDocTaskForce/testextra?branch=master) [![CRAN status](https://www.r-pkg.org/badges/version/testextra)](https://cran.r-project.org/package=testextra) [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 
