@@ -331,8 +331,8 @@ addin_covr_file <- function(){
     pkg <- rstudioapi::getActiveProject()
     doc <- rstudioapi::getSourceEditorContext()
     rstudioapi::documentSave(doc$id)
-    covr_file( file_coverage(doc$path, pkg = pkg)
-             , show.report = TRUE
-             )
+    try(covr_file( file_coverage(doc$path, pkg = pkg)
+                 , show.report = TRUE
+                 ))
 }
 # nocov end

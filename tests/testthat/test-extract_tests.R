@@ -282,7 +282,7 @@ expect_message( x <- .extract_tests_to_file(tmp.in, tmp.out, verbose=TRUE)
 expect_identical(x, character())
 expect_false (file.exists(tmp.out))
 })
-#line 471 "R/extract_tests.R"
+#line 472 "R/extract_tests.R"
 test_that('extract_tests', {#@testing
     tmp.dir <- normalizePath(tempdir(), '/', TRUE)
     if (!dir.exists(tmp.dir)) dir.create(tmp.dir)
@@ -307,7 +307,6 @@ test_that('extract_tests', {#@testing
                                )
                          , names = file.path('R', c('Class.R', 'function.R'))
                          )
-
     test.dir <- normalizePath(file.path(pkg, "tests", "testthat"), '/', FALSE)
     expect_identical(list.files(test.dir), c('test-Class.R', 'test-function.R'))
 
@@ -326,9 +325,12 @@ test_that('extract_tests', {#@testing
     expect_true(file.exists(file.path(pkg, "tests", "testthat", "test-Class.R")))
     expect_true(file.exists(file.path(pkg, "tests", "testthat", "test-function.R")))
 
+    description <- as.data.frame(read.dcf(file.path(pkg, 'DESCRIPTION')))
+    description$Suggests <- collapse(c('testthat', 'testextra'), ", ")
+    write.dcf(description, file=file.path(pkg, 'DESCRIPTION'))
+
     unlink(sapply(expected, attr, 'test.file'))
-    expect_warning( result <- extract_tests(pkg, full.path = TRUE)
-                  , "testthat not found in suggests. `extract_tests` assumes a testthat infrastructure.")
+    expect_silent(result <- extract_tests(pkg, full.path = TRUE))
     expected <- structure( expected
                          , names = file.path(pkg, 'R', c('Class.R', 'function.R'), fsep ="/"))
     expect_identical(result, expected)
@@ -346,8 +348,7 @@ test_that('extract_tests', {#@testing
 
 
     unlink(sapply(expected, attr, 'test.file'))
-    expect_warning( result <- extract_tests(pkg, full.path = FALSE)
-                  , "testthat not found in suggests. `extract_tests` assumes a testthat infrastructure.")
+    expect_silent(result <- extract_tests(pkg, full.path = FALSE))
     expected <- structure( expected
                          , names = c('Class.R', 'function.R')
                          )
@@ -366,7 +367,7 @@ test_that('extract_tests', {#@testing
 
     unlink(pkg, recursive=TRUE, force = TRUE)
 })
-#line 554 "R/extract_tests.R"
+#line 556 "R/extract_tests.R"
 test_that('extract_tests', {#@testing
     pkg <- file.path(tempdir(), "testExtractionTest")
     if (dir.exists(pkg))

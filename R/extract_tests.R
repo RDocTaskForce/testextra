@@ -416,11 +416,12 @@ function( pkg = '.'     #< package to extract tests for.
         pkg$path <- normalizePath(pkg$path, '/')  # nocov
     for(e in intersect(c('imports', 'suggests', 'depends', 'collate'), names(pkg)))
         pkg[[e]] <- trimws(strsplit(pkg[[e]], "\\s*,\\s*")[[1]], 'both')
-    for (i in intersect(names(pkg), c('suggests', 'imports', 'depends')))
+    for (i in intersect(names(pkg), c('suggests', 'imports', 'depends', 'extends')))
         pkg[[i]] <- strsplit(pkg[[i]], ',\\s*')[[1]]
     if ( "testthat" %!in% pkg$suggests
       && "testthat" %!in% pkg$imports
       && "testthat" %!in% pkg$depends
+      && "testthat" %!in% pkg$extends
        )
         pkg_warning("testthat not found in suggests." %<<%
                     "`extract_tests` assumes a testthat infrastructure.")
@@ -492,7 +493,6 @@ if(FALSE){#@testing
                                )
                          , names = file.path('R', c('Class.R', 'function.R'))
                          )
-
     test.dir <- normalizePath(file.path(pkg, "tests", "testthat"), '/', FALSE)
     expect_identical(list.files(test.dir), c('test-Class.R', 'test-function.R'))
 
@@ -511,9 +511,12 @@ if(FALSE){#@testing
     expect_true(file.exists(file.path(pkg, "tests", "testthat", "test-Class.R")))
     expect_true(file.exists(file.path(pkg, "tests", "testthat", "test-function.R")))
 
+    description <- as.data.frame(read.dcf(file.path(pkg, 'DESCRIPTION')))
+    description$Suggests <- collapse(c('testthat', 'testextra'), ", ")
+    write.dcf(description, file=file.path(pkg, 'DESCRIPTION'))
+
     unlink(sapply(expected, attr, 'test.file'))
-    expect_warning( result <- extract_tests(pkg, full.path = TRUE)
-                  , "testthat not found in suggests. `extract_tests` assumes a testthat infrastructure.")
+    expect_silent(result <- extract_tests(pkg, full.path = TRUE))
     expected <- structure( expected
                          , names = file.path(pkg, 'R', c('Class.R', 'function.R'), fsep ="/"))
     expect_identical(result, expected)
@@ -531,8 +534,7 @@ if(FALSE){#@testing
 
 
     unlink(sapply(expected, attr, 'test.file'))
-    expect_warning( result <- extract_tests(pkg, full.path = FALSE)
-                  , "testthat not found in suggests. `extract_tests` assumes a testthat infrastructure.")
+    expect_silent(result <- extract_tests(pkg, full.path = FALSE))
     expected <- structure( expected
                          , names = c('Class.R', 'function.R')
                          )
@@ -619,11 +621,11 @@ addin_test <- function(){
     stopifnot(requireNamespace("rstudioapi"))
     project <- rstudioapi::getActiveProject()
     if (is.null(project)) project <- getwd()
-    test(pkg=project, filter=NULL)
+    try(test(pkg=project, filter=NULL))
 }
 
 #' @rdname test
-test_file <-
+extract_and_test_file <-
 function( file = rstudioapi::getSourceEditorContext()$path
         , pkg  = rstudioapi::getActiveProject()
         ){
@@ -638,7 +640,7 @@ addin_test_file <- function(){
     pkg <- rstudioapi::getActiveProject()
     doc <- rstudioapi::getSourceEditorContext()
     rstudioapi::documentSave(doc$id)
-    test_file(doc$path, basename(pkg))
+    try(extract_and_test_file(doc$path, basename(pkg)))
 }
 # nocov end
 
