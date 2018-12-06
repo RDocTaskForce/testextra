@@ -12,6 +12,7 @@
 #' @param class The class object is to be, or classes it is allowed to be.
 #'
 #' @family class
+#' @example inst/examples/example-class-tests.R
 NULL
 
 #' @describeIn class-tests Check if all elements of a list are or inherit from the given class.
@@ -145,6 +146,7 @@ if(FALSE){#@testing
 #' @param class the expected class object is to be.
 #'
 #' @family class
+#' @example inst/examples/example-class-expectations.R
 NULL
 
 #' @describeIn class-expectations test that an object does **not** inherit from a class.
@@ -154,7 +156,7 @@ function (object, class, info = NULL, label = NULL){
     act <- testthat::quasi_label(rlang::enquo(object), label)
     act$class <-
     exp_lab <- paste(class, collapse = "/")
-    testthat::expect( Negate(inherits)(act$val, class)
+    testthat::expect( Negate(is)(act$val, class)
                     , sprintf("%s is a %s; should not inherit from `%s`."
                              , act$lab, act$class, exp_lab)
                     , info = info)

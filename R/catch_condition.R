@@ -5,6 +5,22 @@
 #' error, to allow for testing components and classes.
 #'
 #' @param code code to run that should assert a condition.
+#' @examples
+#' (cond <- catch_condition(stop("catch me.")))
+#' class(cond)
+#'
+#' my_fun <- function(){
+#'     message("a message")
+#'     warning("a warning")
+#'     pkg_message("a package message", scope="test")
+#'     pkg_warning("a package warning", scope="test")
+#'     pkg_error("a package error", scope='test')
+#' }
+#' conditions <- catch_all_conditions(my_fun())
+#' conditions$messages
+#' conditions$warnings
+#' conditions$error  # only one error can be caught at a time.
+#'
 catch_condition <- function(code){
     val <- tryCatch(force(code), condition = function(cond)cond)
     if (is(val, 'condition')) return(val)

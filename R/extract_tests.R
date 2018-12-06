@@ -413,7 +413,14 @@ expect_false (file.exists(tmp.out))
 #'                   NA(default) implies path relative to `pkg`.
 #' @param force Force test extraction even if the generated test file
 #'              is newer than the corresponding source file.
+#' @examples
+#' \dontrun{
+#' # Extract all files
+#' extract_tests('.')
 #'
+#' # Extract only files that start with 'Class-' or 'class-'
+#' extract_tests('.', filter="^[Cc]lass-.*\\.[Rr]$")
+#' }
 extract_tests <-
 function( pkg = '.'     #< package to extract tests for.
         , filter = NULL
@@ -626,6 +633,23 @@ if(FALSE){#@testing
 #' @param filter An optional filter to restrict the files to extract from and run tests for.
 #' @param file for `test_file` the exact file to extract and test from.
 #'
+#' @examples
+#' \dontrun{
+#' # Extract and run all tests for the package in the
+#' # current working directory.
+#' test()
+#'
+#' # One argument form
+#' # extract and test class files for the
+#' # package in the current working directory.
+#' test("^Class-")
+#'
+#' # Two argument form
+#' # Extract files matching "Class" in the filename
+#' # for the package located at "inst/textExtractionTest"
+#' test("inst/testExtractionTest", "Class")
+#'
+#' }
 # nocov start
 test <-
 function( ...
@@ -642,7 +666,7 @@ function( ...
         stop('devtools is required to run the tests.')
 }
 
-#' Rstudio addin for [test()]
+#' Rstudio addins
 addin_test <- function(){
     stopifnot(requireNamespace("rstudioapi"))
     project <- rstudioapi::getActiveProject()

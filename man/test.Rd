@@ -34,3 +34,21 @@ If arguments are provided they may be named.
 If any argument is named all must be named, if not found
 the two key parameters will be taken to be
 }
+\examples{
+\dontrun{
+# Extract and run all tests for the package in the
+# current working directory.
+test()
+
+# One argument form
+# extract and test class files for the
+# package in the current working directory.
+test("^Class-")
+
+# Two argument form
+# Extract files matching "Class" in the filename
+# for the package located at "inst/textExtractionTest"
+test("inst/testExtractionTest", "Class")
+
+}
+}

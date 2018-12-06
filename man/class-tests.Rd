@@ -42,6 +42,24 @@ This manifests in S4 Virtual classes such as the 'ANY' class
 \item \code{all_are_exactly}: Version of \code{is_exactly} for all elements of a list.
 }}
 
+\examples{
+lst <- list(1L, 2, TRUE)
+
+# all_inherit uses `inherits`
+all_inherit(lst, 'numeric')
+all_inherit(lst, 'integer')
+all_inherit(lst, 'ANY')
+
+# are uses `is` so gets different results.
+are(lst, "numeric")
+are(lst, "integer")
+are(lst, "ANY")
+
+# is_exactly the class must match exactly
+is_exactly(1L, "integer")
+# no inheritance allowed
+is_exactly(1L, "numeric")
+}
 \seealso{
 Other class: \code{\link{class-expectations}}
 }

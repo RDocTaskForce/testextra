@@ -36,7 +36,6 @@ RoxygenNote: 6.1.1
 Collate: 
     'extract_tests.R'
     'catch_condition.R'
-    'expectations.R'
     'inheritance.R'
     'new_namespace.R'
     'strings.R'

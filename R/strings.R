@@ -11,6 +11,18 @@ NULL
 
 #' @describeIn string-tests Test that a character is both a string (character vector of length one)
 #' and that it is non-empty, has at least one character and is not missing.
+#'
+#' @examples
+#' # TRUE
+#' is_nonempty_string("hello")
+#'
+#' # All FALSE
+#' x <- c("hello", "world")
+#' is_nonempty_string(x)
+#' is_nonempty_string(NA_character_)
+#' is_nonempty_string(character(0))
+#' is_nonempty_string(NULL)
+#' is_nonempty_string(12345)
 is_nonempty_string <- structure(function(x){
     is.character(x) &&
     length(x) == 1L &&

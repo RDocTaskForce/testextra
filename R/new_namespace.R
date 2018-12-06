@@ -1,12 +1,21 @@
 globalVariables(c('getNamespaceRegistry', 'unregisterNamespace'))
 
-#' Create a new namespace environment
+#' @name namespaces
+#' @title Create namespace environments
+#'
+#' @description
+#' Create and manipulate namespace and test package environments.
 #'
 #' @param name The name of the environment
 #' @param path An optional path.
 #' @param import Package to include in the imports.
 #' @inheritDotParams new_namespace_env
 #' @param register Should the package namespace be registered?
+#' @param ns a namespace environment or a character name of a namespace.
+#' @example inst/examples/example-namespace.R
+NULL
+
+#' @describeIn namespaces Create a new namespace environment
 new_namespace_env <-
 function( name
         , path = file.path(tempdir())
@@ -42,7 +51,9 @@ if(FALSE){#@testing
     expect_false(isNamespaceLoaded("test namespace"))
 }
 
-#' @rdname new_namespace_env
+#' @describeIn namespaces Create a packge environment.
+#' All package environments are namespaces but not all
+#' namespaces qualify as package environments.
 new_pkg_environment <-
 function( name = "test package environment"
         , ...
@@ -108,12 +119,7 @@ if(FALSE){#@testing can specify imports
     (get(".Internal", envir = baseenv(), mode = "function"))(getNamespaceRegistry())
 }
 
-#' Register a namespace
-#'
-#' Only full packages should ever be registered.
-#'
-#' @param ns A namespace environment.
-#'
+#' @describeIn namespaces Register a namespace
 register_namespace <- function(ns){
     assert_that( isNamespace(ns)
                , is_nonempty_string(name <- environmentName(ns))
@@ -123,12 +129,7 @@ register_namespace <- function(ns){
     invisible(ns)
 }
 
-#' Register a namespace
-#'
-#' Only full packages should ever be registered.
-#'
-#' @param ns A namespace environment.
-#'
+#' @describeIn namespaces Unregister a namespace
 unregister_namespace <- function(ns){
     assert_that( isNamespace(ns)
                , is_nonempty_string(name <- environmentName(ns))
@@ -138,9 +139,7 @@ unregister_namespace <- function(ns){
     else FALSE
 }
 
-#' Check if a namespace is registered
-#'
-#' @param ns a namespace environment or a character name of a namespace.
+#' @describeIn namespaces Check if a namespace is registered
 is_namespace_registered <-
 function(ns){
     if (is.environment(ns) && assert_that(isNamespace(ns)))

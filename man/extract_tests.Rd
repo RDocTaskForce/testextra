@@ -36,3 +36,12 @@ The first line of the block should look similar to\preformatted{    if(FALSE){#@
     }
 }
 }
+\examples{
+\dontrun{
+# Extract all files
+extract_tests('.')
+
+# Extract only files that start with 'Class-' or 'class-'
+extract_tests('.', filter="^[Cc]lass-.*\\\\.[Rr]$")
+}
+}

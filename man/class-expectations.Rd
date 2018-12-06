@@ -36,6 +36,19 @@ and not a child class.
 \item \code{expect_all_inherit}: test that all elements of a list inherit a given class.
 }}
 
+\examples{
+
+# Test to make sure an object is not of a class.
+\dontrun{
+# will return an error.
+expect_is_not(1L, "numeric")
+}
+
+# but this is fine.
+expect_is_not('a', "numeric")
+
+expect_is_exactly('a', "character")
+}
 \seealso{
 Other class: \code{\link{class-tests}}
 }

@@ -3,12 +3,12 @@
 \name{addin_test}
 \alias{addin_test}
 \alias{addin_test_file}
-\title{Rstudio addin for \code{\link[=test]{test()}}}
+\title{Rstudio addins}
 \usage{
 addin_test()
 
 addin_test_file()
 }
 \description{
-Rstudio addin for \code{\link[=test]{test()}}
+Rstudio addins
 }

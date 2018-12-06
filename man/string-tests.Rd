@@ -25,3 +25,15 @@ and that it is non-empty, has at least one character and is not missing.
 a vector of either length 0 or 1, and if provided must not be empty ("").
 }}
 
+\examples{
+# TRUE
+is_nonempty_string("hello")
+
+# All FALSE
+x <- c("hello", "world")
+is_nonempty_string(x)
+is_nonempty_string(NA_character_)
+is_nonempty_string(character(0))
+is_nonempty_string(NULL)
+is_nonempty_string(12345)
+}

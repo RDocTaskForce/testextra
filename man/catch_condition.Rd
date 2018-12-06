@@ -16,3 +16,20 @@ catch_all_conditions(code)
 This function captures a condition object such as a warning or
 error, to allow for testing components and classes.
 }
+\examples{
+(cond <- catch_condition(stop("catch me.")))
+class(cond)
+
+my_fun <- function(){
+    message("a message")
+    warning("a warning")
+    pkg_message("a package message", scope="test")
+    pkg_warning("a package warning", scope="test")
+    pkg_error("a package error", scope='test')
+}
+conditions <- catch_all_conditions(my_fun())
+conditions$messages
+conditions$warnings
+conditions$error  # only one error can be caught at a time.
+
+}
