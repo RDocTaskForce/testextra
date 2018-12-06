@@ -24,11 +24,12 @@ is_valid <- function(object, complete=FALSE){
 }
 #' @describeIn validity-tests Check if each element in a list is valid.
 are_valid <-
-function(lst, complete=FALSE, simplify=NA){
+function(lst, complete=FALSE){
     valid <- lapply(lst, is_valid, complete=complete)
-    if (isFALSE(simplify)) return(valid) else
-    if (isTRUE(simplify) || all(valid)) return(simplify2array(valid))
-    else return(valid)
+
+    if (all(. <- sapply(valid, isTRUE))) return(.)
+    messages <- sapply(valid, attr, 'msg')
+    structure(., messages=messages)
 }
 
 
@@ -64,4 +65,22 @@ if(FALSE){#@testing
     expect_error( expect_valid(obj)
                 , "`obj` is not valid;" %<<% dQuote("This class is always invalid")
                 )
+
+    cls <- setClass('test_class', contains='list')
+    setValidity('test_class', function(object)TRUE)
+    obj2 <- cls()
+
+    expect_true(is_valid(obj2))
+    expect_silent(expect_valid(obj2))
+
+    lst <- list(obj, obj2)
+    expect_identical( are_valid(lst)
+                    , structure( c(FALSE, TRUE)
+                               , messages = list("This class is always invalid", NULL)
+                               )
+                    )
+    expect_identical( validate_that(all(are_valid(lst)))
+                    , "Elements 1 of are_valid(lst) are not true"
+                    )
+    expect_identical(are_valid(list(obj2, obj2)), c(TRUE, TRUE))
 }

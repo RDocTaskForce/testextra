@@ -1,14 +1,19 @@
-Name: Extract and run tests
+Name: Extract & covr package
+Description: Run `extract_tests()` `devtools::test()` for the curent project.
+Binding: addin_extract_covr
+Interactive: false
+
+Name: Extract & run tests
 Description: Run `extract_tests()` and `test()` for the curent project.
 Binding: addin_test
 Interactive: false
 
-Name: Extract and run tests from active file
+Name: Extract & test active file
 Description: Extract and run tests from active file in Rstudio.
 Binding: addin_test_file
 Interactive: false
 
-Name: Covr active file
+Name: Extract & covr active file
 Description: Extract tests, Run tests, report coverage results for active file in Rstudio.
 Binding: addin_covr_file
 Interactive: false

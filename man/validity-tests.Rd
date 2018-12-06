@@ -8,7 +8,7 @@
 \usage{
 is_valid(object, complete = FALSE)
 
-are_valid(lst, complete = FALSE, simplify = NA)
+are_valid(lst, complete = FALSE)
 }
 \arguments{
 \item{object}{an S4 object to test for validity}
@@ -17,15 +17,6 @@ are_valid(lst, complete = FALSE, simplify = NA)
       called recursively for each of the slots.  The default is \code{FALSE}.}
 
 \item{lst}{a list of S4 objects to test for validity.}
-
-\item{simplify}{logical or character string; should the result be
-    simplified to a vector, matrix or higher dimensional array if
-    possible?  For \code{sapply} it must be named and not abbreviated.
-    The default value, \code{TRUE}, returns a vector or matrix if appropriate,
-    whereas if \code{simplify = "array"} the result may be an
-    \code{\link{array}} of \dQuote{rank}
-    (\eqn{=}\code{length(dim(.))}) one higher than the result
-    of \code{FUN(X[[i]])}.}
 }
 \description{
 These functions will test if an object is valid

@@ -43,6 +43,24 @@ makeActiveBinding( '.tests.head.lines', function(){
           ) path <- dirname(path)
     if (file.exists(file.path(path, 'DESCRIPTION'))) return(path)
 }
+if(FALSE){#@testing
+    test.pkg.src <- system.file("testExtractionTest", "R", package = "testextra")
+    pkg <- file.path(tempdir(), "testExtractionTest")
+    if (dir.exists(pkg))
+        unlink(pkg, recursive = TRUE, force = TRUE)
+
+    package.skeleton("testExtractionTest", path=tempdir()
+                    , code_files = list.files(test.pkg.src, full=TRUE)
+                    )
+    expect_identical(.pkg_base(pkg), pkg)
+    expect_identical(.pkg_base(file.path(pkg, "R", fsep = '/')), pkg)
+    expect_identical(.pkg_base(file.path(pkg, "R", "Class.R", fsep = '/')), pkg)
+
+    unlink(file.path(pkg, "DESCRIPTION", fsep = '/'))
+    expect_null(.pkg_base(pkg))
+
+    unlink(pkg, recursive = TRUE, force = TRUE)
+}
 
 #@internal
 .extract_tests_to_file <-
@@ -562,8 +580,12 @@ if(FALSE){#@testing
                     )
     test.dir <- normalizePath(file.path(pkg, "tests", "testthat"), '/', mustWork = FALSE)
 
+    description <- as.data.frame(read.dcf(file.path(pkg, 'DESCRIPTION')))
+    description$Suggests <- collapse(c('testthat', 'testextra'), ", ")
+    write.dcf(description, file=file.path(pkg, 'DESCRIPTION'))
+
     expect_identical(list.files(test.dir, full.names = TRUE),character())
-    expect_warning( result <- extract_tests(pkg, filter='Class', full.path = FALSE))
+    result <- extract_tests(pkg, filter='Class', full.path = FALSE)
 
     expect_identical( result
                     , list("Class.R" = structure(c( 'setClass("Test-Class", ...)'
@@ -578,6 +600,10 @@ if(FALSE){#@testing
     expect_identical( list.files(test.dir, full.names = FALSE)
                     , 'test-Class.R'
                     )
+
+    expect_error(extract_tests(pkg, filter='bad filter', full.path = FALSE)
+                , "Filtered to no files to extract from\\.")
+
     unlink(pkg, recursive = TRUE, force=TRUE)
 }
 

@@ -335,4 +335,19 @@ addin_covr_file <- function(){
                  , show.report = TRUE
                  ))
 }
+
+#' Addin for Extract & Coverage
+#'
+#'
+addin_extract_covr <- function(){
+    stopifnot(requireNamespace("rstudioapi"))
+    project <- rstudioapi::getActiveProject()
+    if (is.null(project)) project <- getwd()
+    try({
+        extract_tests(project)
+        covr::report(covr::package_coverage(project))
+    })
+}
+
+
 # nocov end

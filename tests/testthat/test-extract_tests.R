@@ -2,7 +2,26 @@
 #! Changes will be overwritten.
 
 context('tests extracted from file `extract_tests.R`')
-#line 97 "R/extract_tests.R"
+#line 46 "R/extract_tests.R"
+test_that('.pkg_base', {#@testing
+    test.pkg.src <- system.file("testExtractionTest", "R", package = "testextra")
+    pkg <- file.path(tempdir(), "testExtractionTest")
+    if (dir.exists(pkg))
+        unlink(pkg, recursive = TRUE, force = TRUE)
+
+    package.skeleton("testExtractionTest", path=tempdir()
+                    , code_files = list.files(test.pkg.src, full=TRUE)
+                    )
+    expect_identical(.pkg_base(pkg), pkg)
+    expect_identical(.pkg_base(file.path(pkg, "R", fsep = '/')), pkg)
+    expect_identical(.pkg_base(file.path(pkg, "R", "Class.R", fsep = '/')), pkg)
+
+    unlink(file.path(pkg, "DESCRIPTION", fsep = '/'))
+    expect_null(.pkg_base(pkg))
+
+    unlink(pkg, recursive = TRUE, force = TRUE)
+})
+#line 115 "R/extract_tests.R"
 test_that('.extract_tests_to_file Basic', {#@testing .extract_tests_to_file Basic
 {'hello_world <- function(){
     print("hello world")
@@ -166,7 +185,7 @@ expect_false(dir.exists(file.path(tempdir(), "tests")))
 
 unlink(tmp.in)
 })
-#line 260 "R/extract_tests.R"
+#line 278 "R/extract_tests.R"
 test_that('.extract_tests_to_file setClass', {#@testing .extract_tests_to_file setClass
 {'
 setClass("Test-Class")
@@ -201,7 +220,7 @@ expect_equal(x, structure("setClass(\"Test-Class\", ...)", test.file = tmp.out))
 unlink(tmp.in)
 unlink(tmp.out)
 })
-#line 294 "R/extract_tests.R"
+#line 312 "R/extract_tests.R"
 test_that('.extract_tests_to_file setMethod', {#@testing .extract_tests_to_file setMethod
 '
 setMethod("show", "Test-Class", function(x){cat("hi")})
@@ -233,7 +252,7 @@ expect_equal(x, structure("show,Test-Class-method", test.file = tmp.out))
 unlink(tmp.in)
 unlink(tmp.out)
 })
-#line 325 "R/extract_tests.R"
+#line 343 "R/extract_tests.R"
 test_that('.extract_tests_to_file setGeneric', {#@testing .extract_tests_to_file setGeneric
 '
 setGeneric("yolo", yolo::yolo)
@@ -262,7 +281,7 @@ expect_equal( lines
             )
 expect_equal(x, structure("setGeneric(\"yolo\", ...)", test.file = tmp.out))
 })
-#line 353 "R/extract_tests.R"
+#line 371 "R/extract_tests.R"
 test_that('.extract_tests_to_file no test blocks', {#@testing .extract_tests_to_file no test blocks
 'hello_world <- function(){
     print("hello world")
@@ -282,7 +301,7 @@ expect_message( x <- .extract_tests_to_file(tmp.in, tmp.out, verbose=TRUE)
 expect_identical(x, character())
 expect_false (file.exists(tmp.out))
 })
-#line 472 "R/extract_tests.R"
+#line 490 "R/extract_tests.R"
 test_that('extract_tests', {#@testing
     tmp.dir <- normalizePath(tempdir(), '/', TRUE)
     if (!dir.exists(tmp.dir)) dir.create(tmp.dir)
@@ -367,7 +386,7 @@ test_that('extract_tests', {#@testing
 
     unlink(pkg, recursive=TRUE, force = TRUE)
 })
-#line 556 "R/extract_tests.R"
+#line 574 "R/extract_tests.R"
 test_that('extract_tests', {#@testing
     pkg <- file.path(tempdir(), "testExtractionTest")
     if (dir.exists(pkg))
@@ -377,8 +396,12 @@ test_that('extract_tests', {#@testing
                     )
     test.dir <- normalizePath(file.path(pkg, "tests", "testthat"), '/', mustWork = FALSE)
 
+    description <- as.data.frame(read.dcf(file.path(pkg, 'DESCRIPTION')))
+    description$Suggests <- collapse(c('testthat', 'testextra'), ", ")
+    write.dcf(description, file=file.path(pkg, 'DESCRIPTION'))
+
     expect_identical(list.files(test.dir, full.names = TRUE),character())
-    expect_warning( result <- extract_tests(pkg, filter='Class', full.path = FALSE))
+    result <- extract_tests(pkg, filter='Class', full.path = FALSE)
 
     expect_identical( result
                     , list("Class.R" = structure(c( 'setClass("Test-Class", ...)'
@@ -393,5 +416,9 @@ test_that('extract_tests', {#@testing
     expect_identical( list.files(test.dir, full.names = FALSE)
                     , 'test-Class.R'
                     )
+
+    expect_error(extract_tests(pkg, filter='bad filter', full.path = FALSE)
+                , "Filtered to no files to extract from\\.")
+
     unlink(pkg, recursive = TRUE, force=TRUE)
 })

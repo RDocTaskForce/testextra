@@ -33,7 +33,7 @@ catch_all_conditions <- function(code){
             )
     return(conditions)
 }
-if(FALSE){
+if(FALSE){#@testing
     my_fun <- function(){
         message("a message")
         warning("a warning")

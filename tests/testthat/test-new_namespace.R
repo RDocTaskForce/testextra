@@ -2,13 +2,13 @@
 #! Changes will be overwritten.
 
 context('tests extracted from file `new_namespace.R`')
-#line 38 "/rdtf/testextra/R/new_namespace.R"
+#line 39 "R/new_namespace.R"
 test_that('new_namespace_env', {#@testing
     ns <- new_namespace_env("test namespace")
     expect_true(isNamespace(ns))
     expect_false(isNamespaceLoaded("test namespace"))
 })
-#line 56 "/rdtf/testextra/R/new_namespace.R"
+#line 57 "R/new_namespace.R"
 test_that('new_pkg_environment', {#@testing
     ns <- new_pkg_environment()
     expect_true(isNamespace(ns))
@@ -22,7 +22,7 @@ test_that('new_pkg_environment', {#@testing
     expect_equal(environmentName(ns2), "pkg2")
     expect_true(is_namespace_registered('pkg2'))
 })
-#line 69 "/rdtf/testextra/R/new_namespace.R"
+#line 70 "R/new_namespace.R"
 test_that('Can define classes, generics and methods.', {#@testing Can define classes, generics and methods.
     ns <- new_pkg_environment("class-test", register=TRUE)
     expect_true(isNamespace(ns))
@@ -52,7 +52,7 @@ test_that('Can define classes, generics and methods.', {#@testing Can define cla
     expect_false(is_namespace_registered(ns))
     expect_false(unregister_namespace(ns))
 })
-#line 98 "/rdtf/testextra/R/new_namespace.R"
+#line 99 "R/new_namespace.R"
 test_that('can specify imports', {#@testing can specify imports
     pkg <- new_pkg_environment('test-import', import=c('methods', 'testextra'))
     expect_true(isNamespace(pkg))
