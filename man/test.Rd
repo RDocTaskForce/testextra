@@ -2,13 +2,13 @@
 % Please edit documentation in R/extract_tests.R
 \name{test}
 \alias{test}
-\alias{test_file}
+\alias{extract_and_test_file}
 \title{Extract and run package tests}
 \usage{
 test(..., pkg = switch(nargs(), ".", ..1), filter = switch(...length(),
   ..1, ..2))
 
-test_file(file = rstudioapi::getSourceEditorContext()$path,
+extract_and_test_file(file = rstudioapi::getSourceEditorContext()$path,
   pkg = rstudioapi::getActiveProject())
 }
 \arguments{

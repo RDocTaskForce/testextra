@@ -1,3 +1,4 @@
+globalVariables(c('getNamespaceRegistry', 'unregisterNamespace'))
 
 #' Create a new namespace environment
 #'
