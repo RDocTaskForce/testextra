@@ -301,7 +301,7 @@ expect_message( x <- .extract_tests_to_file(tmp.in, tmp.out, verbose=TRUE)
 expect_identical(x, character())
 expect_false (file.exists(tmp.out))
 })
-#line 490 "R/extract_tests.R"
+#line 495 "R/extract_tests.R"
 test_that('extract_tests', {#@testing
     tmp.dir <- normalizePath(tempdir(), '/', TRUE)
     if (!dir.exists(tmp.dir)) dir.create(tmp.dir)
@@ -386,7 +386,7 @@ test_that('extract_tests', {#@testing
 
     unlink(pkg, recursive=TRUE, force = TRUE)
 })
-#line 574 "R/extract_tests.R"
+#line 579 "R/extract_tests.R"
 test_that('extract_tests', {#@testing
     pkg <- file.path(tempdir(), "testExtractionTest")
     if (dir.exists(pkg))

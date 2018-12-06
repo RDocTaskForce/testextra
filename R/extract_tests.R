@@ -439,10 +439,8 @@ function( pkg = '.'     #< package to extract tests for.
     }# nocov end
     if (.Platform$OS.type == "windows")
         pkg$path <- normalizePath(pkg$path, '/')  # nocov
-    for(e in intersect(c('imports', 'suggests', 'depends', 'collate'), names(pkg)))
+    for(e in intersect(c('imports', 'suggests', 'depends', 'extends', 'collate'), names(pkg)))
         pkg[[e]] <- trimws(strsplit(pkg[[e]], "\\s*,\\s*")[[1]], 'both')
-    for (i in intersect(names(pkg), c('suggests', 'imports', 'depends', 'extends')))
-        pkg[[i]] <- strsplit(pkg[[i]], ',\\s*')[[1]]
     if ( "testthat" %!in% pkg$suggests
       && "testthat" %!in% pkg$imports
       && "testthat" %!in% pkg$depends

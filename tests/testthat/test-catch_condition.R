@@ -2,13 +2,13 @@
 #! Changes will be overwritten.
 
 context('tests extracted from file `catch_condition.R`')
-#line 12 "/rdtf/testextra/R/catch_condition.R"
+#line 28 "R/catch_condition.R"
 test_that('catch_condition', {#@testing
     val <- catch_condition(pkg_message("testing"))
     expect_is(val, 'condition')
     expect_is(val, 'message')
 })
-#line 36 "/rdtf/testextra/R/catch_condition.R"
+#line 52 "R/catch_condition.R"
 test_that('catch_all_conditions', {#@testing
     my_fun <- function(){
         message("a message")

@@ -2,7 +2,7 @@
 #! Changes will be overwritten.
 
 context('tests extracted from file `inheritance.R`')
-#line 40 "C:/Users/u0092104/Dropbox/rdtf/testextra/R/inheritance.R"
+#line 41 "R/inheritance.R"
 test_that('all_inherit', {#@testing
     l <- list( 'a', 'b', 'c'
              , 1, 2
@@ -26,7 +26,7 @@ test_that('all_inherit', {#@testing
 
     expect_true( all_inherit(list(1L, 2L, 3L), 'integer'))
 })
-#line 70 "C:/Users/u0092104/Dropbox/rdtf/testextra/R/inheritance.R"
+#line 71 "R/inheritance.R"
 test_that('are', {#@testing
     lst <- list('a', 1L, TRUE)
 
@@ -35,7 +35,7 @@ test_that('are', {#@testing
     expect_identical(are(lst, 'integer'), c(F,T,F))
     expect_identical(are(lst, 'numeric'), c(F,T,F))
 })
-#line 113 "C:/Users/u0092104/Dropbox/rdtf/testextra/R/inheritance.R"
+#line 114 "R/inheritance.R"
 test_that('all_are_exactly', {#@testing
     l <- list( 'a', 'b', 'c'
              , 1, 2)
@@ -57,11 +57,11 @@ test_that('all_are_exactly', {#@testing
                       dQuote("numeric") %<<<% '.')
     expect_true(all_are_exactly(list(1L, 2L), 'integer'))
 })
-#line 163 "C:/Users/u0092104/Dropbox/rdtf/testextra/R/inheritance.R"
+#line 165 "R/inheritance.R"
 test_that('expect_is_not', {#@testing
     expect_is_not('a', 'numeric')
 })
-#line 181 "C:/Users/u0092104/Dropbox/rdtf/testextra/R/inheritance.R"
+#line 183 "R/inheritance.R"
 test_that('expect_is_exactly', {#@testing
     x <- list(1:3)
 
@@ -76,7 +76,7 @@ test_that('expect_is_exactly', {#@testing
                 , "`x` is a class/super1/super2; should be exactly a `super1`."
                 )
 })
-#line 205 "C:/Users/u0092104/Dropbox/rdtf/testextra/R/inheritance.R"
+#line 207 "R/inheritance.R"
 test_that('expect_all_inherit', {#@testing
     expect_true( expect_all_inherit(1:3, 'integer'))
     l <- list( 'a', 'b', 'c'
