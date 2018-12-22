@@ -5,7 +5,7 @@
 NULL
 
 
-.nonempty.string.msg <- "does nto conform to a non-empty string" %<<%
+.nonempty.string.msg <- "does not conform to a non-empty string" %<<%
                         "(a character vector of length 1 without" %<<%
                         "without missing or empty values)."
 
