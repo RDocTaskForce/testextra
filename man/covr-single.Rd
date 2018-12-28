@@ -32,9 +32,9 @@ names to exclude. Example \code{print\\\\.} to match print methods.}
 
 \item{coverage}{Coverage returned from \code{file_coverage()}.}
 
-\item{report.file}{Where to save the HTMLreport.}
+\item{report.file}{Where to save the HTML report.}
 
-\item{show.report}{if the HTMLreport should be displayed.}
+\item{show.report}{if the HTML report should be displayed.}
 }
 \description{
 These functions extract tests, run tests and create a report of the coverage for

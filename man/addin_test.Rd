@@ -3,12 +3,12 @@
 \name{addin_test}
 \alias{addin_test}
 \alias{addin_test_file}
-\title{Rstudio addins}
+\title{RStudio add-ins}
 \usage{
 addin_test()
 
 addin_test_file()
 }
 \description{
-Rstudio addins
+RStudio add-ins
 }

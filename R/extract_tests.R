@@ -615,7 +615,7 @@ if(FALSE){#@testing
 #' Extract and run package tests
 #'
 #' This function corresponds to an intentionally masks [devtools::test()]
-#' from the devtools package.
+#' from the [\code{devtools}](https://devtools.r-lib.org/) package.
 #' This version is polymorphic depending on the number of arguments given.
 #'
 #' When no arguments are provided all tests are extracted and run from
@@ -664,7 +664,7 @@ function( ...
         stop('devtools is required to run the tests.')
 }
 
-#' Rstudio addins
+#' RStudio add-ins
 addin_test <- function(){
     stopifnot(requireNamespace("rstudioapi"))
     project <- rstudioapi::getActiveProject()

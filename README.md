@@ -3,7 +3,7 @@
 testextra <img src="man/figures/logo.png" align="right" height=140/>
 ====================================================================
 
-[![Travis build status](https://travis-ci.org/RDocTaskForce/testextra.svg?branch=master)](https://travis-ci.org/RDocTaskForce/testextra) [![codecov.io](https://codecov.io/github/RDocTaskForce/testextra/coverage.svg?branch=master)](https://codecov.io/github/RDocTaskForce/testextra?branch=master) [![CRAN status](https://www.r-pkg.org/badges/version/testextra)](https://cran.r-project.org/package=testextra) [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Travis build status](https://travis-ci.org/RDocTaskForce/testextra.svg?branch=master)](https://travis-ci.org/RDocTaskForce/testextra) [![Coverage](https://codecov.io/github/RDocTaskForce/testextra/coverage.svg?branch=master)](https://codecov.io/github/RDocTaskForce/testextra?branch=master) [![CRAN status](https://www.r-pkg.org/badges/version/testextra)](https://cran.r-project.org/package=testextra) [![life-cycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 
 The goal of testextra is to facilitate extraction of tests embedded in source code.
 
@@ -16,7 +16,7 @@ You will be able to install the released version of testextra from [CRAN](https:
 install.packages("testextra")
 ```
 
-Until then or if you wish to get the latest version prior to release you may install directly from github with:
+Until then or if you wish to get the latest version prior to release you may install directly from GitHub with:
 
 ``` r
 remotes::install_github("RDocTaskForce/testextra")
@@ -37,7 +37,7 @@ if(FALSE){#@testing
 }
 ```
 
-Assuming the preceeding code is in a package file `./R/hello_world.R` running the `extract_tests()` command will create a file `./tests/testthat/test-hello_world.R` with the contents as below.
+Assuming the preceding code is in a package file `./R/hello_world.R` running the `extract_tests()` command will create a file `./tests/testthat/test-hello_world.R` with the contents as below.
 
 ``` r
 #! This file was automatically produced by the testextra package.
@@ -55,9 +55,10 @@ When run, if there are error messages, the line given will be the line and file 
 Combination Functions
 ---------------------
 
-The functions `test()` and `test_file()` provided in `testextra` will both extract tests from source files and run said tests outputing the results. `test()` operates on a package as a whole or a subsetof a package by setting the filter argument, see the help file for details. `test_file()` is intended to work with the [Rstudio](http://rstudio.com) GUI. It takes the currently selected file, extracts tests and runs the tests. This way a tests may be run only for the current file being evaluated.
+The functions `test()` and `test_file()` provided in `testextra` will both extract tests from source files, run said tests, and output the results. `test()` operates on a package as a whole or a subset of a package by
+setting the filter argument, see the help file for details. `test_file()` is intended to work with the [RStudio](http://rstudio.com) GUI. It takes the currently selected file, extracts tests and runs the tests. This way a tests may be run only for the current file being evaluated.
 
-Both `test()` and `test_file()` are available through the addins, and made accessible through the menu of Rstudio.
+Both `test()` and `test_file()` are available through the add-ins, and made accessible through the menu of RStudio.
 
 Other Helpers
 -------------
@@ -69,7 +70,7 @@ The 'testextra\` package provides a number of useful testing functions to use wh
 -   **`all_inherit()`** - tests if all elements of a list are of the given class or classes.
 -   **`are()`** - similar to `all_inherit()`, however uses the `is()` mechanism which is more appropriate for S4 classes.
 -   **`is_exactly()`** - Tests if an object is a class, but disallows inheritance.
--   **`all_are_exactly()`** - The `is_exactly()` test vectorized over a list of objects.
+-   **`all_are_exactly()`** - The `is_exactly()` test mapped over a list of objects.
 
 ### Strings
 

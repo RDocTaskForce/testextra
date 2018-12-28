@@ -22,7 +22,7 @@ extract_and_test_file(file = rstudioapi::getSourceEditorContext()$path,
 }
 \description{
 This function corresponds to an intentionally masks \code{\link[devtools:test]{devtools::test()}}
-from the devtools package.
+from the \href{https://devtools.r-lib.org/}{\code{devtools}} package.
 This version is polymorphic depending on the number of arguments given.
 }
 \details{

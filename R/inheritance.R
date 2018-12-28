@@ -4,7 +4,7 @@
 #' @name class-tests
 #' @title Enhanced Class Tests
 #' @description
-#' These tests allow for vectorized and enhanced test regarding class.
+#' These tests allow for mapped and enhanced tests regarding class.
 #'
 #' @inheritParams testthat::expect_is
 #' @param object An object to test
@@ -62,7 +62,7 @@ if(FALSE){#@testing
     expect_true( all_inherit(list(1L, 2L, 3L), 'integer'))
 }
 
-#' @describeIn class-tests Vectorized version of [methods::is].
+#' @describeIn class-tests [methods::is] mapped over a vector.
 #'     Similar to `all_inherit` but uses [methods::is()] for test.
 #'     This manifests in S4 Virtual classes such as the 'ANY' class
 are <- function(lst, class){
@@ -142,7 +142,7 @@ if(FALSE){#@testing
 #' These extend the [testthat::expect_is] to have finer grain tests.
 #'
 #' @inheritParams testthat::expect_is
-#' @param object the object in quesion.
+#' @param object the object in question.
 #' @param class the expected class object is to be.
 #'
 #' @family class

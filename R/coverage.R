@@ -157,8 +157,8 @@ function( coverage
 #' @param pkg The package `file` is associated with.
 #' @inheritDotParams covr::file_coverage
 #' @param coverage Coverage returned from `file_coverage()`.
-#' @param report.file Where to save the HTMLreport.
-#' @param show.report if the HTMLreport should be displayed.
+#' @param report.file Where to save the HTML report.
+#' @param show.report if the HTML report should be displayed.
 NULL
 
 #' @describeIn covr-single Extract tests and compute the coverage for the given file.
@@ -321,11 +321,11 @@ function( filter
 # nocov end
 
 
-# Rstudio Addins ----------------------------------------------------------
+# RStudio Addins ----------------------------------------------------------
 # nocov start
-#' Addin for `covr_file`
+#' Add-in for `covr_file`
 #'
-#' This allows for [covr_file] to be run from a menu in Rstudio.
+#' This allows for [covr_file] to be run from a menu in RStudio.
 addin_covr_file <- function(){
     stopifnot(requireNamespace("rstudioapi"))
     pkg <- rstudioapi::getActiveProject()
@@ -336,7 +336,7 @@ addin_covr_file <- function(){
                  ))
 }
 
-#' Addin for Extract & Coverage
+#' Add-in for Extract & Coverage
 #'
 #'
 addin_extract_covr <- function(){

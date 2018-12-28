@@ -2,10 +2,10 @@
 % Please edit documentation in R/coverage.R
 \name{addin_covr_file}
 \alias{addin_covr_file}
-\title{Addin for \code{covr_file}}
+\title{Add-in for \code{covr_file}}
 \usage{
 addin_covr_file()
 }
 \description{
-This allows for \link{covr_file} to be run from a menu in Rstudio.
+This allows for \link{covr_file} to be run from a menu in RStudio.
 }

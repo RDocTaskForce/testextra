@@ -51,7 +51,7 @@ if(FALSE){#@testing
     expect_false(isNamespaceLoaded("test namespace"))
 }
 
-#' @describeIn namespaces Create a packge environment.
+#' @describeIn namespaces Create a package environment.
 #' All package environments are namespaces but not all
 #' namespaces qualify as package environments.
 new_pkg_environment <-
@@ -129,7 +129,7 @@ register_namespace <- function(ns){
     invisible(ns)
 }
 
-#' @describeIn namespaces Unregister a namespace
+#' @describeIn namespaces Remove a namespace from the registry
 unregister_namespace <- function(ns){
     assert_that( isNamespace(ns)
                , is_nonempty_string(name <- environmentName(ns))

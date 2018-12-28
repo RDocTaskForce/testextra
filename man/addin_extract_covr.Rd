@@ -2,10 +2,10 @@
 % Please edit documentation in R/coverage.R
 \name{addin_extract_covr}
 \alias{addin_extract_covr}
-\title{Addin for Extract & Coverage}
+\title{Add-in for Extract & Coverage}
 \usage{
 addin_extract_covr()
 }
 \description{
-Addin for Extract & Coverage
+Add-in for Extract & Coverage
 }

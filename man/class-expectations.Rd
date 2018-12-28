@@ -14,7 +14,7 @@ expect_is_exactly(object, class, info = NULL, label = NULL)
 expect_all_inherit(object, class, info = NULL, label = NULL)
 }
 \arguments{
-\item{object}{the object in quesion.}
+\item{object}{the object in question.}
 
 \item{class}{the expected class object is to be.}
 

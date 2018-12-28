@@ -26,14 +26,14 @@ all_are_exactly(lst, class, label = NULL)
 \item{object}{An object to test}
 }
 \description{
-These tests allow for vectorized and enhanced test regarding class.
+These tests allow for mapped and enhanced tests regarding class.
 }
 \section{Functions}{
 \itemize{
 \item \code{all_inherit}: Check if all elements of a list are or inherit from the given class.
 Uses \code{\link[base:inherits]{base::inherits()}} to check inheritance.
 
-\item \code{are}: Vectorized version of \link[methods:is]{methods::is}.
+\item \code{are}: \link[methods:is]{methods::is} mapped over a vector.
 Similar to \code{all_inherit} but uses \code{\link[methods:is]{methods::is()}} for test.
 This manifests in S4 Virtual classes such as the 'ANY' class
 

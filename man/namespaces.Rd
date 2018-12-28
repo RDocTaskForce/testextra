@@ -46,13 +46,13 @@ Create and manipulate namespace and test package environments.
 \itemize{
 \item \code{new_namespace_env}: Create a new namespace environment
 
-\item \code{new_pkg_environment}: Create a packge environment.
+\item \code{new_pkg_environment}: Create a package environment.
 All package environments are namespaces but not all
 namespaces qualify as package environments.
 
 \item \code{register_namespace}: Register a namespace
 
-\item \code{unregister_namespace}: Unregister a namespace
+\item \code{unregister_namespace}: Remove a namespace from the registry
 
 \item \code{is_namespace_registered}: Check if a namespace is registered
 }}
