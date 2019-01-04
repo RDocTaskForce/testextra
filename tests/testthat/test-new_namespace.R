@@ -16,13 +16,16 @@ test_that('new_pkg_environment', {#@testing
     expect_equal(environmentName(ns), "test package environment")
     expect_false(is_namespace_registered(ns))
 
+    if (is_namespace_registered("pkg2"))
+        unregister_namespace(asNamespace("pkg2"))
+
     ns2 <- new_pkg_environment("pkg2", register=TRUE)
     expect_true(isNamespace(ns2))
     expect_equal(getPackageName(ns2), "pkg2")
     expect_equal(environmentName(ns2), "pkg2")
     expect_true(is_namespace_registered('pkg2'))
 })
-#line 81 "R/new_namespace.R"
+#line 84 "R/new_namespace.R"
 test_that('Can define classes, generics and methods.', {#@testing Can define classes, generics and methods.
     ns <- new_pkg_environment("class-test", register=TRUE)
     expect_true(isNamespace(ns))
@@ -52,7 +55,7 @@ test_that('Can define classes, generics and methods.', {#@testing Can define cla
     expect_false(is_namespace_registered(ns))
     expect_false(unregister_namespace(ns))
 })
-#line 110 "R/new_namespace.R"
+#line 113 "R/new_namespace.R"
 test_that('can specify imports', {#@testing can specify imports
     pkg <- new_pkg_environment('test-import', import=c('methods', 'testextra'))
     expect_true(isNamespace(pkg))

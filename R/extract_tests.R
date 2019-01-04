@@ -45,13 +45,15 @@ makeActiveBinding( '.tests.head.lines', function(){
 }
 if(FALSE){#@testing
     test.pkg.src <- system.file("testExtractionTest", "R", package = "testextra")
-    pkg <- file.path(tempdir(), "testExtractionTest")
+    pkg <- normalizePath( file.path(tempdir(), "testExtractionTest")
+                        , "/", mustWork = FALSE)
     if (dir.exists(pkg))
         unlink(pkg, recursive = TRUE, force = TRUE)
 
+    suppress_messages(
     package.skeleton("testExtractionTest", path=tempdir()
                     , code_files = list.files(test.pkg.src, full=TRUE)
-                    )
+                    ))
     expect_identical(.pkg_base(pkg), pkg)
     expect_identical(.pkg_base(file.path(pkg, "R", fsep = '/')), pkg)
     expect_identical(.pkg_base(file.path(pkg, "R", "Class.R", fsep = '/')), pkg)

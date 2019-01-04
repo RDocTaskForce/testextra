@@ -2,16 +2,18 @@
 #! Changes will be overwritten.
 
 context('tests extracted from file `extract_tests.R`')
-#line 46 "R/extract_tests.R"
+#line 46 "C:/rdtf/testextra/R/extract_tests.R"
 test_that('.pkg_base', {#@testing
     test.pkg.src <- system.file("testExtractionTest", "R", package = "testextra")
-    pkg <- file.path(tempdir(), "testExtractionTest")
+    pkg <- normalizePath( file.path(tempdir(), "testExtractionTest")
+                        , "/", mustWork = FALSE)
     if (dir.exists(pkg))
         unlink(pkg, recursive = TRUE, force = TRUE)
 
+    suppress_messages(
     package.skeleton("testExtractionTest", path=tempdir()
                     , code_files = list.files(test.pkg.src, full=TRUE)
-                    )
+                    ))
     expect_identical(.pkg_base(pkg), pkg)
     expect_identical(.pkg_base(file.path(pkg, "R", fsep = '/')), pkg)
     expect_identical(.pkg_base(file.path(pkg, "R", "Class.R", fsep = '/')), pkg)
@@ -21,7 +23,7 @@ test_that('.pkg_base', {#@testing
 
     unlink(pkg, recursive = TRUE, force = TRUE)
 })
-#line 115 "R/extract_tests.R"
+#line 117 "C:/rdtf/testextra/R/extract_tests.R"
 test_that('.extract_tests_to_file Basic', {#@testing .extract_tests_to_file Basic
 {'hello_world <- function(){
     print("hello world")
@@ -185,7 +187,7 @@ expect_false(dir.exists(file.path(tempdir(), "tests")))
 
 unlink(tmp.in)
 })
-#line 278 "R/extract_tests.R"
+#line 280 "C:/rdtf/testextra/R/extract_tests.R"
 test_that('.extract_tests_to_file setClass', {#@testing .extract_tests_to_file setClass
 {'
 setClass("Test-Class")
@@ -220,7 +222,7 @@ expect_equal(x, structure("setClass(\"Test-Class\", ...)", test.file = tmp.out))
 unlink(tmp.in)
 unlink(tmp.out)
 })
-#line 312 "R/extract_tests.R"
+#line 314 "C:/rdtf/testextra/R/extract_tests.R"
 test_that('.extract_tests_to_file setMethod', {#@testing .extract_tests_to_file setMethod
 '
 setMethod("show", "Test-Class", function(x){cat("hi")})
@@ -252,7 +254,7 @@ expect_equal(x, structure("show,Test-Class-method", test.file = tmp.out))
 unlink(tmp.in)
 unlink(tmp.out)
 })
-#line 343 "R/extract_tests.R"
+#line 345 "C:/rdtf/testextra/R/extract_tests.R"
 test_that('.extract_tests_to_file setGeneric', {#@testing .extract_tests_to_file setGeneric
 '
 setGeneric("yolo", yolo::yolo)
@@ -281,7 +283,7 @@ expect_equal( lines
             )
 expect_equal(x, structure("setGeneric(\"yolo\", ...)", test.file = tmp.out))
 })
-#line 371 "R/extract_tests.R"
+#line 373 "C:/rdtf/testextra/R/extract_tests.R"
 test_that('.extract_tests_to_file no test blocks', {#@testing .extract_tests_to_file no test blocks
 'hello_world <- function(){
     print("hello world")
@@ -301,7 +303,7 @@ expect_message( x <- .extract_tests_to_file(tmp.in, tmp.out, verbose=TRUE)
 expect_identical(x, character())
 expect_false (file.exists(tmp.out))
 })
-#line 495 "R/extract_tests.R"
+#line 497 "C:/rdtf/testextra/R/extract_tests.R"
 test_that('extract_tests', {#@testing
     tmp.dir <- normalizePath(tempdir(), '/', TRUE)
     if (!dir.exists(tmp.dir)) dir.create(tmp.dir)
@@ -386,7 +388,7 @@ test_that('extract_tests', {#@testing
 
     unlink(pkg, recursive=TRUE, force = TRUE)
 })
-#line 579 "R/extract_tests.R"
+#line 581 "C:/rdtf/testextra/R/extract_tests.R"
 test_that('extract_tests', {#@testing
     pkg <- file.path(tempdir(), "testExtractionTest")
     if (dir.exists(pkg))
