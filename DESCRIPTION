@@ -3,12 +3,14 @@ Type: Package
 Title: Extract Test Blocks
 Version: 0.1.0
 Authors@R: person("Andrew", "Redd", role = c("aut", "cre")
-                 , email = "Andrew.Redd@hsc.utah.edu"
+                 , email = "andrew.redd@hsc.utah.edu"
                  , comment = c(ORCID = "https://orcid.org/000-0002-6149-2438")
                  )
-Maintainer: Andrew Redd <amredd@gmail.com>
-Description: Extract inline test blocks from package source files.
-    Also includes a collection of testing enhancements and utilities.
+Maintainer: Andrew Redd <andrew.redd@hsc.utah.edu>
+Description: A collection of testing enhancements and utilities.
+    Including utilities for extracting inline test blocks from 
+    package source files.
+    
 License: GPL-2
 Encoding: UTF-8
 Language: en-US
