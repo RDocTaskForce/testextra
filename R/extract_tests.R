@@ -593,15 +593,17 @@ if(FALSE){#@testing
 
     expect_identical(list.files(test.dir, full.names = TRUE),character())
     result <- extract_tests(pkg, filter='Class', full.path = FALSE)
-
-    expect_identical( result
-                    , list("Class.R" = structure(c( 'setClass("Test-Class", ...)'
-                                          , 'show,Test-Class-method'
-                                          , 'setGeneric("yolo", ...)'
-                                          )
-                                        , test.file = file.path(test.dir, 'test-Class.R', fsep='/')
-                                        )
-                           ))
+    expect_length(result, 1)
+    expect_length(result[[1]], 3)
+    expect_equal( structure(result[[1]], test.file=NULL)
+                , c( 'setClass("Test-Class", ...)'
+                   , 'show,Test-Class-method'
+                   , 'setGeneric("yolo", ...)'
+                   )
+                )
+    expect_equal( normalizePath(attr(result[[1]], "test.file"))
+                , normalizePath(file.path(test.dir, 'test-Class.R', fsep='/'))
+                )
 
     expect_true(dir.exists(test.dir))
     expect_identical( list.files(test.dir, full.names = FALSE)
