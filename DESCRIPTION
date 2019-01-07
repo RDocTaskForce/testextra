@@ -10,7 +10,6 @@ Maintainer: Andrew Redd <andrew.redd@hsc.utah.edu>
 Description: A collection of testing enhancements and utilities.
     Including utilities for extracting inline test blocks from 
     package source files.
-    
 License: GPL-2
 Encoding: UTF-8
 Language: en-US
