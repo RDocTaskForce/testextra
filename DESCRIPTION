@@ -2,10 +2,17 @@ Package: testextra
 Type: Package
 Title: Extract Test Blocks
 Version: 0.1.0
-Authors@R: person("Andrew", "Redd", role = c("aut", "cre")
-                 , email = "andrew.redd@hsc.utah.edu"
-                 , comment = c(ORCID = "https://orcid.org/000-0002-6149-2438")
-                 )
+Authors@R: c( 
+    person("Andrew", "Redd", role = c("aut", "cre")
+          , email = "andrew.redd@hsc.utah.edu"
+          , comment = c(ORCID = "https://orcid.org/000-0002-6149-2438")
+          ), 
+    person("R Documentation Task Force", role=c("cph")
+          , comment = c(url = "https://rdoctaskforce.github.io/")
+          ),
+    person("R Consortium", role="fnd"
+          , comment = c(url = "https://www.r-consortium.org")
+          ))
 Maintainer: Andrew Redd <andrew.redd@hsc.utah.edu>
 Description: A collection of testing enhancements and utilities.
     Including utilities for extracting inline test blocks from 
