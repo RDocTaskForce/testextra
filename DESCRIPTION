@@ -1,7 +1,7 @@
 Package: testextra
 Type: Package
 Title: Extract Test Blocks
-Version: 0.1.0
+Version: 0.1.0.9000
 Authors@R: c( 
     person("Andrew", "Redd", role = c("aut", "cre")
           , email = "andrew.redd@hsc.utah.edu"
