@@ -7,10 +7,10 @@ Authors@R: c(
           , email = "andrew.redd@hsc.utah.edu"
           , comment = c(ORCID = "https://orcid.org/000-0002-6149-2438")
           ), 
-    person("R Documentation Task Force", role=c("cph")
+    person("R Documentation Task Force", role=c("ctb")
           , comment = c(url = "https://rdoctaskforce.github.io/")
           ),
-    person("R Consortium", role="fnd"
+    person("R Consortium", role=c("fnd", "cph")
           , comment = c(url = "https://www.r-consortium.org")
           ))
 Maintainer: Andrew Redd <andrew.redd@hsc.utah.edu>
