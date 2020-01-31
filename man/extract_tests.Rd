@@ -4,9 +4,13 @@
 \alias{extract_tests}
 \title{Extract tests from source}
 \usage{
-extract_tests(pkg = ".", filter = NULL,
-  verbose = getOption("verbose", FALSE), full.path = NA,
-  force = FALSE)
+extract_tests(
+  pkg = ".",
+  filter = NULL,
+  verbose = getOption("verbose", FALSE),
+  full.path = NA,
+  force = FALSE
+)
 }
 \arguments{
 \item{pkg}{The root directory of the package.}
@@ -31,9 +35,9 @@ from running when sourced by an \code{if(FALSE){...}} statement.
 It also contains a documentation tag to denote a testing block.
 }
 \details{
-The first line of the block should look similar to\preformatted{    if(FALSE){#@testing [optional information]
+The first line of the block should look similar to\preformatted{    if(FALSE)\{#@testing [optional information]
     ...
-    }
+    \}
 }
 }
 \examples{

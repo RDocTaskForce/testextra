@@ -9,11 +9,9 @@
 \alias{is_namespace_registered}
 \title{Create namespace environments}
 \usage{
-new_namespace_env(name, path = file.path(tempdir()),
-  import = "methods")
+new_namespace_env(name, path = file.path(tempdir()), import = "methods")
 
-new_pkg_environment(name = "test package environment", ...,
-  register = FALSE)
+new_pkg_environment(name = "test package environment", ..., register = FALSE)
 
 register_namespace(ns)
 
@@ -28,12 +26,11 @@ is_namespace_registered(ns)
 
 \item{import}{Package to include in the imports.}
 
-\item{...}{Arguments passed on to \code{new_namespace_env}
-\describe{
-  \item{name}{The name of the environment}
-  \item{path}{An optional path.}
-  \item{import}{Package to include in the imports.}
-}}
+\item{...}{
+  Arguments passed on to \code{\link[=new_namespace_env]{new_namespace_env}}
+  \describe{
+    \item{\code{}}{}
+  }}
 
 \item{register}{Should the package namespace be registered?}
 

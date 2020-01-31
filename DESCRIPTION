@@ -41,7 +41,7 @@ Suggests:
     yaml,
     DT
 Roxygen: list(markdown = TRUE, roclets = c('rd'))
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 Collate: 
     'extract_tests.R'
     'catch_condition.R'

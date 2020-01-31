@@ -6,10 +6,10 @@
 #' @description
 #' These tests allow for mapped and enhanced tests regarding class.
 #'
-#' @inheritParams testthat::expect_is
 #' @param object An object to test
 #' @param lst A list of objects to test
 #' @param class The class object is to be, or classes it is allowed to be.
+#' @param label Used to customise failure messages. For expert use only.
 #'
 #' @family class
 #' @example inst/examples/example-class-tests.R
@@ -141,9 +141,9 @@ if(FALSE){#@testing
 #' @description
 #' These extend the [testthat::expect_is] to have finer grain tests.
 #'
-#' @inheritParams testthat::expect_is
 #' @param object the object in question.
 #' @param class the expected class object is to be.
+#' @param label Used to customise failure messages. For expert use only.
 #'
 #' @family class
 #' @example inst/examples/example-class-expectations.R
@@ -151,7 +151,7 @@ NULL
 
 #' @describeIn class-expectations test that an object does **not** inherit from a class.
 expect_is_not <-
-function (object, class, info = NULL, label = NULL){
+function (object, class, label = NULL){
     stopifnot(is.character(class))
     act <- testthat::quasi_label(rlang::enquo(object), label)
     act$class <-
@@ -159,7 +159,7 @@ function (object, class, info = NULL, label = NULL){
     testthat::expect( Negate(is)(act$val, class)
                     , sprintf("%s is a %s; should not inherit from `%s`."
                              , act$lab, act$class, exp_lab)
-                    , info = info)
+                    )
     invisible(act$val)
 }
 if(FALSE){#@testing
@@ -169,7 +169,7 @@ if(FALSE){#@testing
 #' @describeIn class-expectations test that an object is exactly a specific class
 #'  and not a child class.
 expect_is_exactly <-
-function (object, class, info = NULL, label = NULL){
+function (object, class, label = NULL){
     stopifnot(is.character(class))
     act <- testthat::quasi_label(rlang::enquo(object), label)
     act$class <- collapse(class(object), "/")
@@ -177,7 +177,7 @@ function (object, class, info = NULL, label = NULL){
     testthat::expect( is_exactly(act$val, class)
                     , sprintf("%s is a %s; should be exactly a `%s`."
                              , act$lab, act$class, exp_lab)
-                    , info = info)
+                    )
     invisible(act$val)
 }
 if(FALSE){#@testing
@@ -191,17 +191,18 @@ if(FALSE){#@testing
 
     expect_is(x, 'super1')
     expect_error( expect_is_exactly(x, 'super1')
+                , class = 'expectation_failure'
                 , "`x` is a class/super1/super2; should be exactly a `super1`."
                 )
 }
 
 #' @describeIn class-expectations test that all elements of a list inherit a given class.
-expect_all_inherit <- function (object, class, info = NULL, label = NULL) {
+expect_all_inherit <- function (object, class, label = NULL) {
     act <- testthat::quasi_label(rlang::enquo(object), label)
     test <- all_inherit(object, class, label=act$lab)
     testthat::expect( isTRUE(test)
                     , attr(test, 'msg')
-                    , info = info)
+                    )
     invisible(test)
 }
 if(FALSE){#@testing
@@ -211,21 +212,22 @@ if(FALSE){#@testing
              , function()"hello world"
              )
     expect_error( expect_all_inherit(l, 'character')
+                , class='expectation_failure'
                 , "`l` has bad elements at 4, 5, and 6" %<<%
                   "which do not inherit from" %<<%
                   dQuote("character") %<<<% '.')
     expect_error( expect_all_inherit(l, c('character', 'function'))
+                , class='expectation_failure'
                 , "`l` has bad elements at 4 and 5" %<<%
                   "which do not inherit from" %<<%
                   dQuote("character") %<<% 'or' %<<%
                   dQuote("function") %<<<% '.')
     expect_error( expect_all_inherit(l, c('character', 'numeric'))
+                , class='expectation_failure'
                 , "`l` has bad element at 6" %<<%
                   "which does not inherit from" %<<%
                   dQuote("character") %<<% 'or' %<<%
                   dQuote("numeric") %<<<% '.' %<<%
                   "It is a" %<<% dQuote("function"))
-
-
 }
 

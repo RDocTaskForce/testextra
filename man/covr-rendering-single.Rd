@@ -14,8 +14,12 @@
 
 .single_file_summary(file_stats)
 
-.renderReport(coverage, report.file, dir = dirname(report.file),
-  libdir = file.path(dir, "lib"))
+.renderReport(
+  coverage,
+  report.file,
+  dir = dirname(report.file),
+  libdir = file.path(dir, "lib")
+)
 }
 \arguments{
 \item{line, lines}{Line(s) number}

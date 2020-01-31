@@ -42,15 +42,14 @@ function(lst, complete=FALSE){
 #' [testthat::test_that()] framework.
 #'
 #' @inheritParams validity-tests
-#' @inheritParams testthat::expect_is
+#' @param label Used to customise failure messages. For expert use only.
 #' @family validity-tests
 expect_valid <-
-function (object, complete=FALSE, info=NULL, label=NULL){
+function (object, complete=FALSE, label=NULL){
     act <- testthat::quasi_label(rlang::enquo(object), label)
     is.valid <- validObject(object, test=TRUE, complete=complete)
     testthat::expect(isTRUE(is.valid)
                     , ._("%s is not valid; %s", act$lab, dQuote(is.valid))
-                    , info=info
                     )
 }
 if(FALSE){#@testing

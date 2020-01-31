@@ -7,21 +7,18 @@
 \alias{expect_all_inherit}
 \title{Class Expectations}
 \usage{
-expect_is_not(object, class, info = NULL, label = NULL)
+expect_is_not(object, class, label = NULL)
 
-expect_is_exactly(object, class, info = NULL, label = NULL)
+expect_is_exactly(object, class, label = NULL)
 
-expect_all_inherit(object, class, info = NULL, label = NULL)
+expect_all_inherit(object, class, label = NULL)
 }
 \arguments{
 \item{object}{the object in question.}
 
 \item{class}{the expected class object is to be.}
 
-\item{info}{extra information to be included in the message (useful when
-writing tests in loops).}
-
-\item{label}{object label. When \code{NULL}, computed from deparsed object.}
+\item{label}{Used to customise failure messages. For expert use only.}
 }
 \description{
 These extend the \link[testthat:expect_is]{testthat::expect_is} to have finer grain tests.
@@ -50,6 +47,7 @@ expect_is_not('a', "numeric")
 expect_is_exactly('a', "character")
 }
 \seealso{
-Other class: \code{\link{class-tests}}
+Other class: 
+\code{\link{class-tests}}
 }
 \concept{class}

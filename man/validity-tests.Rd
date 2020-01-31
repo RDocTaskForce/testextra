@@ -31,6 +31,7 @@ returning a value appropriate to use in \code{\link[assertthat:validate_that]{as
 }}
 
 \seealso{
-Other validity-tests: \code{\link{expect_valid}}
+Other validity-tests: 
+\code{\link{expect_valid}()}
 }
 \concept{validity-tests}

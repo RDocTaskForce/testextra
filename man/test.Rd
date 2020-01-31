@@ -5,11 +5,16 @@
 \alias{extract_and_test_file}
 \title{Extract and run package tests}
 \usage{
-test(..., pkg = switch(nargs(), ".", ..1), filter = switch(...length(),
-  ..1, ..2))
+test(
+  ...,
+  pkg = switch(nargs(), ".", ..1),
+  filter = switch(...length(), ..1, ..2)
+)
 
-extract_and_test_file(file = rstudioapi::getSourceEditorContext()$path,
-  pkg = rstudioapi::getActiveProject())
+extract_and_test_file(
+  file = rstudioapi::getSourceEditorContext()$path,
+  pkg = rstudioapi::getActiveProject()
+)
 }
 \arguments{
 \item{...}{polymorphic arguments}

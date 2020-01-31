@@ -21,7 +21,7 @@ all_are_exactly(lst, class, label = NULL)
 
 \item{class}{The class object is to be, or classes it is allowed to be.}
 
-\item{label}{object label. When \code{NULL}, computed from deparsed object.}
+\item{label}{Used to customise failure messages. For expert use only.}
 
 \item{object}{An object to test}
 }
@@ -61,6 +61,7 @@ is_exactly(1L, "integer")
 is_exactly(1L, "numeric")
 }
 \seealso{
-Other class: \code{\link{class-expectations}}
+Other class: 
+\code{\link{class-expectations}}
 }
 \concept{class}

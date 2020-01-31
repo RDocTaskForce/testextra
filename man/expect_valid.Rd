@@ -4,7 +4,7 @@
 \alias{expect_valid}
 \title{Expect an S4 object is valid}
 \usage{
-expect_valid(object, complete = FALSE, info = NULL, label = NULL)
+expect_valid(object, complete = FALSE, label = NULL)
 }
 \arguments{
 \item{object}{an S4 object to test for validity}
@@ -12,16 +12,14 @@ expect_valid(object, complete = FALSE, info = NULL, label = NULL)
 \item{complete}{logical; if \code{TRUE}, \code{validObject} is
       called recursively for each of the slots.  The default is \code{FALSE}.}
 
-\item{info}{extra information to be included in the message (useful when
-writing tests in loops).}
-
-\item{label}{object label. When \code{NULL}, computed from deparsed object.}
+\item{label}{Used to customise failure messages. For expert use only.}
 }
 \description{
 Similar to \code{\link[=is_valid]{is_valid()}} except designed to work in the
 \code{\link[testthat:test_that]{testthat::test_that()}} framework.
 }
 \seealso{
-Other validity-tests: \code{\link{validity-tests}}
+Other validity-tests: 
+\code{\link{validity-tests}}
 }
 \concept{validity-tests}
